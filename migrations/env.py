@@ -5,7 +5,8 @@ from sqlalchemy import pool
 
 from alembic import context
 
-from src.ai_psadt_agent.domain_models.base import Base  # adjust path if needed
+from src.ai_psadt_agent.domain_models.base import Base
+from src.ai_psadt_agent.domain_models.package import Package  # noqa: F401
 
 target_metadata = Base.metadata
 
