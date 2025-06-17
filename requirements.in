@@ -1,0 +1,10 @@
+flask
+flask-pydantic
+flask-cors
+flask-limiter
+sqlalchemy
+alembic
+pydantic
+chromadb
+loguru
+openai
