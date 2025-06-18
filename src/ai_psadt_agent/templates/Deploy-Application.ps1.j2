@@ -1,0 +1,159 @@
+<#
+.SYNOPSIS
+{{ variables.get('appName', 'Application') }} - {{ variables.get('appVersion', '1.0') }}
+
+.DESCRIPTION
+Deploy {{ variables.get('appName', 'Application') }} {{ variables.get('appVersion', '1.0') }} from {{ variables.get('appVendor', 'Vendor') }}.
+This script is generated using the PowerShell App Deployment Toolkit (PSADT).
+
+.PARAMETER DeploymentType
+Specifies the installation type for the deployment. Options: Install, Uninstall, Repair
+
+.PARAMETER DeployMode
+Specifies whether the installation should be run in Interactive, Silent, or NonInteractive mode. Default is: Interactive
+
+.NOTES
+Toolkit Exit Code Ranges:
+60000 - 68999: Reserved for built-in exit codes in Deploy-Application.ps1, Deploy-Application.exe, and AppDeployToolkitMain.ps1
+69000 - 69999: Recommended for user customized exit codes in Deploy-Application.ps1
+70000 - 79999: Recommended for user customized exit codes in AppDeployToolkitExtensions.ps1
+
+.LINK
+http://psappdeploytoolkit.com
+#>
+
+[CmdletBinding()]
+Param (
+	[Parameter(Mandatory=$false)]
+	[ValidateSet('Install','Uninstall','Repair')]
+	[string]$DeploymentType = 'Install',
+	[Parameter(Mandatory=$false)]
+	[ValidateSet('Interactive','Silent','NonInteractive')]
+	[string]$DeployMode = 'Interactive',
+	[Parameter(Mandatory=$false)]
+	[switch]$AllowRebootPassThru = $false,
+	[Parameter(Mandatory=$false)]
+	[switch]$TerminalServerMode = $false,
+	[Parameter(Mandatory=$false)]
+	[switch]$DisableLogging = $false
+)
+
+Try {
+	##*===============================================
+	##* VARIABLE DECLARATION
+	##*===============================================
+	## Variables: Application
+	[string]$appVendor = '{{ variables.get('appVendor', 'Vendor') }}'
+	[string]$appName = '{{ variables.get('appName', 'Application') }}'
+	[string]$appVersion = '{{ variables.get('appVersion', '1.0') }}'
+	[string]$appArch = '{{ variables.get('appArch', 'x64') }}'
+	[string]$appLang = '{{ variables.get('appLang', 'EN') }}'
+	[string]$appRevision = '{{ variables.get('appRevision', '01') }}'
+	[string]$appScriptVersion = '{{ variables.get('appScriptVersion', '1.0.0') }}'
+	[string]$appScriptDate = '{{ variables.get('appScriptDate', '18/06/2025') }}'
+	[string]$appScriptAuthor = '{{ variables.get('appScriptAuthor', 'PSADT AI Agent') }}'
+	##*===============================================
+	## Variables: Install Titles (Only set here to override defaults set by the toolkit)
+	[string]$installName = ''
+	[string]$installTitle = ''
+
+	##* Do not modify section below
+	#region DoNotModify
+
+	## Variables: Exit Code
+	[int32]$mainExitCode = 0
+
+	## Variables: Script
+	[string]$deployAppScriptFriendlyName = 'Deploy Application'
+	[version]$deployAppScriptVersion = [version]'3.9.3'
+	[string]$deployAppScriptDate = '02/05/2023'
+	[hashtable]$deployAppScriptParameters = $psBoundParameters
+
+	## Variables: Environment
+	If (Test-Path -LiteralPath 'variable:HostInvocation') { $InvocationInfo = $HostInvocation } Else { $InvocationInfo = $MyInvocation }
+	[string]$scriptDirectory = Split-Path -Path $InvocationInfo.MyCommand.Definition -Parent
+
+	## Dot source the required App Deploy Toolkit Functions
+	Try {
+		[string]$moduleAppDeployToolkitMain = "$scriptDirectory\AppDeployToolkit\AppDeployToolkitMain.ps1"
+		If (-not (Test-Path -LiteralPath $moduleAppDeployToolkitMain -PathType 'Leaf')) { Throw "Module does not exist at the specified location [$moduleAppDeployToolkitMain]." }
+		If ($DisableLogging) { . $moduleAppDeployToolkitMain -DisableLogging } Else { . $moduleAppDeployToolkitMain }
+	}
+	Catch {
+		If ($mainExitCode -eq 0){ [int32]$mainExitCode = 60008 }
+		Write-Error -Message "Module [$moduleAppDeployToolkitMain] failed to load: `n$($_.Exception.Message)`n `n$($_.InvocationInfo.PositionMessage)" -ErrorAction 'Continue'
+		## Exit the script, returning the exit code to SCCM
+		If (Test-Path -LiteralPath 'variable:HostInvocation') { $script:ExitCode = $mainExitCode; Exit } Else { Exit $mainExitCode }
+	}
+
+	#endregion
+	##* Do not modify section above
+
+{% if custom_functions %}
+	##*===============================================
+	##* CUSTOM FUNCTIONS
+	##*===============================================
+{% for func in custom_functions %}
+	{{ func }}
+{% endfor %}
+
+{% endif %}
+	##*===============================================
+	##* PRE-INSTALLATION
+	##*===============================================
+	[string]$installPhase = 'Pre-Installation'
+
+{% if pre_installation %}
+	## {{ pre_installation.comment if pre_installation.comment else 'Pre-Installation phase' }}
+{% for command in pre_installation.commands %}
+	## {{ command.comment if command.comment else command.name }}
+	{{ command.name }}{% if command.parameters %} {% for key, value in command.parameters.items() %}-{{ key }} {{ "'%s'" % value if value is string and ' ' in value else value }}{% if not loop.last %} {% endif %}{% endfor %}{% endif %}
+{% endfor %}
+
+{% endif %}
+	## Show Welcome Message (allow user to defer)
+	Show-InstallationWelcome -CloseApps 'iexplore' -AllowDefer -DeferTimes 3 -CheckDiskSpace -PersistPrompt
+
+	## Show Progress Message (with the default message)
+	Show-InstallationProgress
+
+	## Set the execution policy for this process
+	Set-ExecutionPolicy -ExecutionPolicy 'Bypass' -Scope 'Process' -Force
+
+	##*===============================================
+	##* INSTALLATION
+	##*===============================================
+	[string]$installPhase = 'Installation'
+
+{% if installation %}
+	## {{ installation.comment if installation.comment else 'Main installation phase' }}
+{% for command in installation.commands %}
+	## {{ command.comment if command.comment else command.name }}
+	{{ command.name }}{% if command.parameters %} {% for key, value in command.parameters.items() %}-{{ key }} {{ "'%s'" % value if value is string and ' ' in value else value }}{% if not loop.last %} {% endif %}{% endfor %}{% endif %}
+{% endfor %}
+
+{% endif %}
+	##*===============================================
+	##* POST-INSTALLATION
+	##*===============================================
+	[string]$installPhase = 'Post-Installation'
+
+{% if post_installation %}
+	## {{ post_installation.comment if post_installation.comment else 'Post-Installation phase' }}
+{% for command in post_installation.commands %}
+	## {{ command.comment if command.comment else command.name }}
+	{{ command.name }}{% if command.parameters %} {% for key, value in command.parameters.items() %}-{{ key }} {{ "'%s'" % value if value is string and ' ' in value else value }}{% if not loop.last %} {% endif %}{% endfor %}{% endif %}
+{% endfor %}
+
+{% endif %}
+	## Display a message to the end user
+	Show-InstallationPrompt -Message 'Installation completed successfully.' -ButtonRightText 'OK' -Icon Information -NoWait
+
+}
+Catch {
+	[int32]$mainExitCode = 60001
+	[string]$mainErrorMessage = "$(Resolve-Error)"
+	Write-Log -Message $mainErrorMessage -Severity 3 -Source $deployAppScriptFriendlyName
+	Show-DialogBox -Text $mainErrorMessage -Icon 'Stop'
+	Exit-Script -ExitCode $mainExitCode
+}

@@ -6,6 +6,11 @@ from unittest.mock import MagicMock, Mock, patch
 
 import pytest
 import yaml
+from ai_psadt_agent.domain_models.psadt_script import (
+    Command,
+    PSADTScript,
+    Section,
+)
 from ai_psadt_agent.services.knowledge_base import (
     Document,
     KnowledgeBase,
@@ -27,6 +32,9 @@ from ai_psadt_agent.services.script_generator import (
     ComplianceLinter,
     GenerationResult,
     ScriptGenerator,
+)
+from ai_psadt_agent.services.script_renderer import (
+    get_script_renderer,
 )
 from loguru import logger  # Added logger import
 
@@ -437,3 +445,142 @@ class TestScriptGenerator:
         assert result.structured_script is None
         assert "Raw Script" in result.script_content
         assert result.metadata["llm_model"] == "gpt-4o-no-tool"
+
+
+class TestScriptRenderer:
+    """Test script renderer functionality."""
+
+    def test_script_renderer_initialization(self):
+        """Test ScriptRenderer initialization."""
+        renderer = get_script_renderer()
+        assert renderer is not None
+        assert renderer.env is not None
+
+    def test_render_psadt_script_msi_fixture(self):
+        """Test rendering PSADTScript for MSI installer."""
+        # Create a PSADTScript for testing
+        psadt_script = PSADTScript(
+            variables={
+                "appName": "7-Zip",
+                "appVendor": "Igor Pavlov",
+                "appVersion": "21.07",
+            },
+            installation=Section(
+                name="Installation",
+                commands=[
+                    Command(
+                        name="Execute-MSI",
+                        parameters={"Action": "Install", "Path": "7z2107-x64.msi", "Parameters": "/qn /norestart"},
+                        comment="Install 7-Zip silently",
+                    )
+                ],
+                comment="Main installation phase",
+            ),
+            post_installation=Section(
+                name="Post-Installation",
+                commands=[
+                    Command(
+                        name="Write-Log",
+                        parameters={"Message": "7-Zip installation completed"},
+                    )
+                ],
+            ),
+        )
+
+        renderer = get_script_renderer()
+        rendered_script = renderer.render_psadt_script(psadt_script)
+
+        # Check that the rendered script contains expected elements
+        assert "7-Zip" in rendered_script
+        assert "Igor Pavlov" in rendered_script
+        assert "21.07" in rendered_script
+        assert "Execute-MSI" in rendered_script
+        assert "7z2107-x64.msi" in rendered_script
+        assert "/qn /norestart" in rendered_script
+        assert "Write-Log" in rendered_script
+        assert "7-Zip installation completed" in rendered_script
+        assert "[CmdletBinding()]" in rendered_script
+        assert "##* VARIABLE DECLARATION" in rendered_script
+        assert "##* INSTALLATION" in rendered_script
+
+    def test_render_psadt_script_inno_fixture(self):
+        """Test rendering PSADTScript for Inno Setup installer."""
+        psadt_script = PSADTScript(
+            variables={
+                "appName": "Notepad++",
+                "appVendor": "Don Ho",
+                "appVersion": "8.4.6",
+            },
+            installation=Section(
+                name="Installation",
+                commands=[
+                    Command(
+                        name="Execute-Process",
+                        parameters={"Path": "npp.8.4.6.Installer.x64.exe", "Parameters": "/S"},
+                        comment="Install Notepad++ silently",
+                    )
+                ],
+            ),
+        )
+
+        renderer = get_script_renderer()
+        rendered_script = renderer.render_psadt_script(psadt_script)
+
+        # Check Inno Setup specific elements
+        assert "Notepad++" in rendered_script
+        assert "Don Ho" in rendered_script
+        assert "8.4.6" in rendered_script
+        assert "Execute-Process" in rendered_script
+        assert "npp.8.4.6.Installer.x64.exe" in rendered_script
+        assert "/S" in rendered_script
+
+    def test_rendered_script_contains_expected_content(self):
+        """Test that rendered scripts contain expected content (compliance test skipped)."""
+        # Create a comprehensive PSADTScript
+        psadt_script = PSADTScript(
+            variables={
+                "appName": "Google Chrome",
+                "appVendor": "Google LLC",
+                "appVersion": "118.0.0",
+            },
+            installation=Section(
+                name="Installation",
+                commands=[
+                    Command(
+                        name="Execute-Process",
+                        parameters={"Path": "ChromeSetup.exe", "Parameters": "--silent --install"},
+                    )
+                ],
+            ),
+        )
+
+        renderer = get_script_renderer()
+        rendered_script = renderer.render_psadt_script(psadt_script)
+
+        # Test that script contains expected content (template will be refined manually)
+        assert "Google Chrome" in rendered_script
+        assert "Google LLC" in rendered_script
+        assert "118.0.0" in rendered_script
+        assert "Execute-Process" in rendered_script
+        assert "ChromeSetup.exe" in rendered_script
+        assert "--silent --install" in rendered_script
+        # Note: Full compliance testing will be done after template is manually refined
+
+    def test_template_context_preparation(self):
+        """Test template context preparation."""
+        psadt_script = PSADTScript(
+            variables={"appName": "TestApp"},
+            custom_functions=["Function Test-Func { Write-Host 'Test' }"],
+            installation=Section(name="Installation", commands=[]),
+            pre_installation=Section(name="Pre-Installation", commands=[]),
+        )
+
+        renderer = get_script_renderer()
+        context = renderer._prepare_template_context(psadt_script)
+
+        assert context["variables"]["appName"] == "TestApp"
+        assert len(context["custom_functions"]) == 1
+        assert "Test-Func" in context["custom_functions"][0]
+        assert context["installation"].name == "Installation"
+        assert context["pre_installation"].name == "Pre-Installation"
+        assert context["post_installation"] is None
