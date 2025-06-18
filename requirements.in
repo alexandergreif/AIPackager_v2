@@ -1,12 +1,14 @@
-flask
-flask-pydantic
-flask-cors
-flask-limiter
-sqlalchemy
-alembic
-pydantic
-chromadb
-loguru
-openai
-python-dotenv
-prometheus-flask-exporter
+# Base dependencies
+flask>=3.0
+sqlalchemy>=2.0
+alembic>=1.13
+pydantic>=2.5
+python-dotenv>=1.0
+loguru>=0.7
+openai>=1.3  # For LLM client
+chromadb>=0.4.22 # For RAG & knowledge base
+flask-pydantic>=0.13 # For Flask + Pydantic integration
+flask-cors>=4.0 # For CORS handling
+flask-limiter>=3.5 # For rate limiting
+prometheus-flask-exporter>=0.22 # For Prometheus metrics
+pyyaml>=6.0 # For YAML parsing in knowledge base

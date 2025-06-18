@@ -1,0 +1,64 @@
+# See https://pre-commit.com for more information
+# See https://pre-commit.com/hooks.html for more hooks
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+        exclude: ^mkdocs\.yml$
+      - id: check-json
+        exclude: ^safety-report\.json$
+      - id: check-toml
+      - id: check-added-large-files
+        exclude: ^mutants/
+      - id: detect-private-key
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.4.4 # Replace with the latest Ruff version
+    hooks:
+      - id: ruff
+        args: [--fix, --exit-non-zero-on-fix]
+        exclude: ^mutants/
+      - id: ruff-format
+        exclude: ^mutants/
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.10.0 # Replace with the latest Mypy version
+    hooks:
+      - id: mypy
+        name: mypy
+        language: python
+        entry: mypy # Just the executable
+        args: [
+            "--config-file=pyproject.toml",
+            "--namespace-packages",
+            "--explicit-package-bases"
+        ] # Arguments as a list
+        types: [python]
+        pass_filenames: false # <— key line, as per user instruction
+        additional_dependencies:
+          - sqlalchemy # For the Mypy plugin
+          - pydantic # For BaseModel type information
+          - types-flask # For Flask route decorators and Response type
+          # - types-Flask-Limiter # For Flask-Limiter stubs - REMOVED due to install error
+          - types-requests
+          - types-PyYAML
+          # - pydantic-mypy # If you use Pydantic models extensively
+
+# Optional: Bandit for security linting
+#  - repo: https://github.com/PyCQA/bandit
+#    rev: 1.7.9 # Replace with the latest Bandit version
+#    hooks:
+#      - id: bandit
+#        args: ["-c", "pyproject.toml"] # Assuming Bandit config is in pyproject.toml
+#        additional_dependencies: ["bandit[toml]"]
+
+# Optional: Safety for checking vulnerable dependencies
+#  - repo: https://github.com/pyupio/safety
+#    rev: 3.1.0 # Replace with the latest Safety version
+#    hooks:
+#      - id: safety
+#        args: ["--stdin"]
+#        files: ^requirements.*\.txt$
+#        pass_filenames: false
+#        entry: bash -c "safety check --stdin < <(cat requirements.txt requirements-dev.txt)"

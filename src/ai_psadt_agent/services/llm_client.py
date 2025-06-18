@@ -3,7 +3,7 @@
 import os
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union  # Added Union
 
 import openai
 from dotenv import load_dotenv
@@ -25,9 +25,10 @@ class LLMMessage:
 class LLMResponse:
     """Response from LLM provider."""
 
-    content: str
+    content: Optional[str]  # Can be None if tool_calls are present
     usage: Optional[Dict[str, Any]] = None
     model: Optional[str] = None
+    tool_calls: Optional[List[Any]] = None  # For OpenAI function calling
 
 
 class LLMProvider(ABC):
@@ -39,6 +40,8 @@ class LLMProvider(ABC):
         messages: List[LLMMessage],
         max_tokens: Optional[int] = None,
         temperature: float = 0.1,
+        tools: Optional[List[Dict[str, Any]]] = None,
+        tool_choice: Optional[Union[str, Dict[str, Any]]] = None,  # Updated type hint
         **kwargs: Any,
     ) -> LLMResponse:
         """Generate response from messages."""
@@ -73,36 +76,48 @@ class OpenAIProvider(LLMProvider):
         messages: List[LLMMessage],
         max_tokens: Optional[int] = None,
         temperature: float = 0.1,
+        tools: Optional[List[Dict[str, Any]]] = None,
+        tool_choice: Optional[Union[str, Dict[str, Any]]] = None,  # Updated type hint
         **kwargs: Any,
     ) -> LLMResponse:
         """Generate response using OpenAI API."""
         try:
-            # Convert messages to OpenAI format
             openai_messages = [{"role": msg.role, "content": msg.content} for msg in messages]
-
             logger.debug(f"Sending {len(openai_messages)} messages to OpenAI")
 
-            response = self.client.chat.completions.create(
-                model=self.model,
-                messages=openai_messages,
-                max_tokens=max_tokens,
-                temperature=temperature,
+            api_params: Dict[str, Any] = {
+                "model": self.model,
+                "messages": openai_messages,
+                "temperature": temperature,
                 **kwargs,
-            )
+            }
+            if max_tokens is not None:
+                api_params["max_tokens"] = max_tokens
+            if tools:
+                api_params["tools"] = tools
+            if tool_choice:
+                api_params["tool_choice"] = tool_choice
 
-            content = response.choices[0].message.content or ""
+            response = self.client.chat.completions.create(**api_params)
+
+            message = response.choices[0].message
+            content = message.content
+            tool_calls = message.tool_calls
+
+            usage_data = response.usage
             usage = {
-                "prompt_tokens": response.usage.prompt_tokens if response.usage else 0,
-                "completion_tokens": response.usage.completion_tokens if response.usage else 0,
-                "total_tokens": response.usage.total_tokens if response.usage else 0,
+                "prompt_tokens": usage_data.prompt_tokens if usage_data else 0,
+                "completion_tokens": usage_data.completion_tokens if usage_data else 0,
+                "total_tokens": usage_data.total_tokens if usage_data else 0,
             }
 
-            logger.info(f"Generated response with {usage['total_tokens']} tokens")
+            logger.info(f"Generated response with {usage['total_tokens']} tokens. Tool calls: {tool_calls is not None}")
 
             return LLMResponse(
                 content=content,
                 usage=usage,
                 model=self.model,
+                tool_calls=tool_calls,
             )
 
         except Exception as e:
@@ -118,7 +133,6 @@ class AnthropicProvider(LLMProvider):
     """Placeholder for Anthropic provider - to be implemented in future."""
 
     def __init__(self, api_key: Optional[str] = None, model: str = "claude-3-sonnet-20240229"):
-        """Initialize Anthropic provider."""
         raise NotImplementedError("Anthropic provider not yet implemented")
 
     def generate(
@@ -126,13 +140,13 @@ class AnthropicProvider(LLMProvider):
         messages: List[LLMMessage],
         max_tokens: Optional[int] = None,
         temperature: float = 0.1,
+        tools: Optional[List[Dict[str, Any]]] = None,
+        tool_choice: Optional[Union[str, Dict[str, Any]]] = None,  # Updated type hint
         **kwargs: Any,
     ) -> LLMResponse:
-        """Generate response using Anthropic API."""
         raise NotImplementedError("Anthropic provider not yet implemented")
 
     def get_provider_name(self) -> str:
-        """Get the provider name."""
         return "anthropic"
 
 
@@ -140,7 +154,6 @@ class GeminiProvider(LLMProvider):
     """Placeholder for Google Gemini provider - to be implemented in future."""
 
     def __init__(self, api_key: Optional[str] = None, model: str = "gemini-pro"):
-        """Initialize Gemini provider."""
         raise NotImplementedError("Gemini provider not yet implemented")
 
     def generate(
@@ -148,29 +161,18 @@ class GeminiProvider(LLMProvider):
         messages: List[LLMMessage],
         max_tokens: Optional[int] = None,
         temperature: float = 0.1,
+        tools: Optional[List[Dict[str, Any]]] = None,
+        tool_choice: Optional[Union[str, Dict[str, Any]]] = None,  # Updated type hint
         **kwargs: Any,
     ) -> LLMResponse:
-        """Generate response using Gemini API."""
         raise NotImplementedError("Gemini provider not yet implemented")
 
     def get_provider_name(self) -> str:
-        """Get the provider name."""
         return "gemini"
 
 
 def get_llm_provider(provider_name: Optional[str] = None) -> LLMProvider:
-    """Factory function to get LLM provider.
-
-    Args:
-        provider_name: Name of provider ("openai", "anthropic", "gemini").
-                      If None, reads from LLM_PROVIDER env var, defaults to "openai".
-
-    Returns:
-        LLM provider instance.
-
-    Raises:
-        ValueError: If provider is not supported.
-    """
+    """Factory function to get LLM provider."""
     if provider_name is None:
         provider_name = os.getenv("LLM_PROVIDER", "openai").lower()
 

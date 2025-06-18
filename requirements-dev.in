@@ -1,10 +1,15 @@
-ruff
-mypy
-pytest
-pip-tools
-shiv
-mutmut
-bandit
-safety
-mkdocs
-mkdocs-material
+-r requirements.in
+
+# Development and testing tools
+pytest>=7.0
+pytest-cov>=3.0  # For coverage reports
+mypy>=1.0  # Static type checker
+ruff>=0.1.0  # Linter and formatter
+pip-tools>=7.0  # For managing requirements files
+mkdocs>=1.4  # For documentation generation
+mkdocs-material>=9.0  # Material theme for MkDocs
+mutmut>=2.4 # Mutation testing
+bandit>=1.7 # Security linter
+safety>=2.3 # Dependency vulnerability scanner
+shiv>=1.0 # For building executable
+pyyaml>=6.0 # For YAML parsing (also in base, but good to have explicit for dev tools if any use it)

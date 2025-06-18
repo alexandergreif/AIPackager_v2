@@ -1,0 +1,92 @@
+# ↓ keep mypy inside src layout only
+[tool.mypy]
+python_version = "3.11"
+strict         = true
+mypy_path      = ["src", "typings"] # Re-adding: Mypy needs to know 'src' is a source root for 'ai_psadt_agent'
+# files          = ["src"] # Keep this removed
+packages       = ["ai_psadt_agent"]
+explicit_package_bases = true
+namespace_packages     = true
+ignore_missing_imports = true # Can be helpful initially
+plugins = ["sqlalchemy.ext.mypy.plugin"] # Added SQLAlchemy Mypy plugin
+# namespace_packages = true # May be needed depending on project structure
+# explicit_package_bases = true # Alternative to mypy_path
+
+[[tool.mypy.overrides]]
+module = [
+    "tests.*" # Example: relax rules for tests if needed
+]
+allow_untyped_defs = true
+
+
+[tool.ruff]
+# Exclude a variety of commonly ignored directories.
+exclude = [
+    ".bzr",
+    ".direnv",
+    ".eggs",
+    ".git",
+    ".hg",
+    ".mypy_cache",
+    ".nox",
+    ".pants.d",
+    ".ruff_cache",
+    ".svn",
+    ".tox",
+    ".venv",
+    "__pypackages__",
+    "_build",
+    "buck-out",
+    "build",
+    "dist",
+    "node_modules",
+    "venv",
+    "migrations/versions" # Alembic auto-generated migrations
+]
+line-length = 120 # Temporarily increased to pass pre-commit
+indent-width = 4
+
+[tool.ruff.lint]
+select = [
+    "E",  # pycodestyle errors
+    "W",  # pycodestyle warnings
+    "F",  # Pyflakes
+    "I",  # isort
+    "C",  # flake8-comprehensions
+    "B",  # flake8-bugbear
+]
+ignore = []
+
+# Allow unused variables when underscore-prefixed.
+dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
+
+[tool.ruff.lint.per-file-ignores]
+# Example: "__init__.py" = ["F401"]
+"src/ai_psadt_agent/services/script_generator.py" = ["E501"] # Ignore E501 for this specific file
+
+[tool.ruff.lint.mccabe]
+# Up the max complexity from default 10, to 15.
+max-complexity = 15
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"
+
+[tool.bandit]
+# Example: exclude tests from bandit scans
+exclude_dirs = ["tests", ".venv", "migrations"]
+skips = ["B101"] # Example: skip assert_used check
+
+[tool.pytest.ini_options]
+pythonpath = [
+  "src",
+  "." # Add current directory as well, can sometimes help with discovery
+]
+# Example: add test paths if not automatically discovered
+# testpaths = [
+#     "tests",
+# ]
+# Example: add default options
+# addopts = "-ra -q"

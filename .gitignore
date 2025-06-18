@@ -14,3 +14,4 @@ aipackager.db
 .coverage
 htmlcov/
 .pytest_cache/
+mutants/
