@@ -28,6 +28,7 @@ from ai_psadt_agent.services.script_generator import (
     GenerationResult,
     ScriptGenerator,
 )
+from loguru import logger  # Added logger import
 
 
 class TestLLMClient:
@@ -229,6 +230,59 @@ class TestKnowledgeBase:
 
         mock_kb_instance.load_switches_from_yaml.assert_called_once_with(str(dummy_switches_file))
         mock_kb_instance.index_directory.assert_called_once_with(str(dummy_docs_dir))
+
+    @pytest.fixture
+    def initialized_kb(self, tmp_path: Path) -> KnowledgeBase:
+        """Provides a KnowledgeBase instance initialized with actual project data paths."""
+        # Create a temporary, isolated ChromaDB for this test to avoid conflicts/pollution
+        # The persist_directory should be unique for this fixture.
+        kb_persist_dir = tmp_path / "kb_fixture_chroma"
+        kb_persist_dir.mkdir()
+
+        # Point to the actual switches.yaml and docs directory
+        # Assuming tests run from project root, and src is at project_root/src
+        project_root = Path(__file__).parent.parent
+        actual_switches_yaml = project_root / "src" / "ai_psadt_agent" / "resources" / "switches.yaml"
+        actual_docs_dir = project_root / "docs" / "raw"
+
+        # Ensure the actual switches.yaml exists for the test to be meaningful
+        if not actual_switches_yaml.exists():
+            pytest.skip(f"Actual switches.yaml not found at {actual_switches_yaml}, skipping test.")
+
+        # Create a new KB instance for this test, pointing to the temp persist dir
+        kb = KnowledgeBase(persist_directory=str(kb_persist_dir))
+        # Manually load switches and index docs for this isolated KB instance
+        kb.load_switches_from_yaml(str(actual_switches_yaml))
+        if actual_docs_dir.exists():
+            kb.index_directory(str(actual_docs_dir))
+        else:
+            logger.warning(f"Docs directory {actual_docs_dir} not found for initialized_kb fixture.")
+        return kb
+
+    def test_find_switches_for_fixture_apps(self, initialized_kb: KnowledgeBase):
+        """Test find_switches for actual fixture apps from switches.yaml."""
+        # Test for "7-Zip" which is in the example switches.yaml
+        seven_zip_switches = initialized_kb.find_switches(product_name="7-Zip")
+        assert seven_zip_switches, "Should find switches for 7-Zip"
+        assert isinstance(seven_zip_switches, list)
+        assert len(seven_zip_switches) > 0
+        # Check some expected content (flexible check)
+        found_msi_7zip = any(s.get("installer_type") == "msi" for s in seven_zip_switches)
+        assert found_msi_7zip, "Should find MSI switches for 7-Zip"
+
+        # Test for "Google Chrome"
+        chrome_switches = initialized_kb.find_switches(product_name="Google Chrome")
+        assert chrome_switches, "Should find switches for Google Chrome"
+        assert len(chrome_switches) > 0
+        found_msi_chrome = any(s.get("installer_type") == "msi" for s in chrome_switches)
+        assert found_msi_chrome, "Should find MSI switches for Google Chrome"
+
+        # Test for a specific exe name if available in switches.yaml
+        # Example: Google Chrome with "ChromeSetup.exe"
+        chrome_exe_switches = initialized_kb.find_switches(product_name="Google Chrome", exe_name="ChromeSetup.exe")
+        assert chrome_exe_switches, "Should find switches for Google Chrome with exe_name ChromeSetup.exe"
+        assert len(chrome_exe_switches) > 0
+        assert chrome_exe_switches[0].get("installer_type") == "exe"
 
 
 class TestPromptTemplates:

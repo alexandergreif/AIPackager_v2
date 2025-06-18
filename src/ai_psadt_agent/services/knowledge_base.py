@@ -8,6 +8,7 @@ from typing import Any, Dict, List, Optional
 import chromadb
 import yaml  # For loading switches.yaml
 from chromadb.config import Settings
+from chromadb.errors import NotFoundError
 from loguru import logger
 
 
@@ -55,7 +56,7 @@ class KnowledgeBase:
         try:
             self.collection = self.client.get_collection(name=collection_name)
             logger.info(f"Loaded existing collection: {collection_name}")
-        except ValueError:
+        except (ValueError, NotFoundError):
             # Collection doesn't exist, create it
             self.collection = self.client.create_collection(
                 name=collection_name,
@@ -311,7 +312,7 @@ class KnowledgeBase:
         if exe_name:
             query_text += f" installer file {exe_name}"
 
-        where_filter = {"type": "switch_config", "product_name": product_name}
+        where_filter = {"$and": [{"type": {"$eq": "switch_config"}}, {"product_name": {"$eq": product_name}}]}
 
         try:
             results = self.collection.query(
