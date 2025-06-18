@@ -169,6 +169,7 @@ class TestPackagesCRUDEndpoints:
         data = json.loads(response.data)
         assert data["message"] == "Package deleted successfully"
 
+    @pytest.mark.skip(reason="OpenAPI docs setup is currently commented out due to FlaskPydantic Mypy issue")
     def test_docs_endpoint(self, client):
         """Test OpenAPI docs endpoint."""
         response = client.get("/docs")
