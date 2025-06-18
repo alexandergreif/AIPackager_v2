@@ -8,3 +8,5 @@ pydantic
 chromadb
 loguru
 openai
+python-dotenv
+prometheus-flask-exporter

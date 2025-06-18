@@ -1,0 +1,122 @@
+site_name: PSADT AI Agent Documentation
+site_description: AI-powered PowerShell App Deployment Toolkit script generator
+site_author: PSADT AI Agent Team
+site_url: https://psadt-ai-agent.github.io/
+
+repo_name: psadt-ai-agent
+repo_url: https://github.com/psadt-ai-agent/psadt-ai-agent
+edit_uri: edit/main/docs/
+
+theme:
+  name: material
+  palette:
+    # Palette toggle for light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: blue
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    # Palette toggle for dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: blue
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - navigation.path
+    - navigation.top
+    - search.highlight
+    - search.share
+    - content.tabs.link
+    - content.code.annotation
+    - content.code.copy
+  language: en
+  logo: assets/logo.png
+  favicon: assets/favicon.ico
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/psadt-ai-agent/psadt-ai-agent
+  version:
+    provider: mike
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - admonition
+  - pymdownx.details
+  - attr_list
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+
+plugins:
+  - search
+  - mkdocs-jupyter
+
+nav:
+  - Home: index.md
+  - Getting Started:
+      - Installation: getting-started/installation.md
+      - Quick Start: getting-started/quick-start.md
+      - Configuration: getting-started/configuration.md
+  - User Guide:
+      - API Overview: user-guide/api-overview.md
+      - Authentication: user-guide/authentication.md
+      - Script Generation: user-guide/script-generation.md
+      - Package Management: user-guide/package-management.md
+      - Validation: user-guide/validation.md
+  - API Reference:
+      - Endpoints: api-reference/endpoints.md
+      - Request/Response: api-reference/request-response.md
+      - Error Codes: api-reference/error-codes.md
+      - Rate Limits: api-reference/rate-limits.md
+  - Deployment:
+      - Windows Executable: deployment/windows-executable.md
+      - Docker: deployment/docker.md
+      - Production Setup: deployment/production.md
+      - Monitoring: deployment/monitoring.md
+  - Development:
+      - Contributing: development/contributing.md
+      - Architecture: development/architecture.md
+      - Testing: development/testing.md
+      - Security: development/security.md
+  - Examples:
+      - Basic Usage: examples/basic-usage.md
+      - Advanced Scripts: examples/advanced-scripts.md
+      - Integration: examples/integration.md
+  - About:
+      - Changelog: about/changelog.md
+      - License: about/license.md
+      - Support: about/support.md
+
+extra_css:
+  - stylesheets/extra.css
+
+extra_javascript:
+  - javascripts/extra.js

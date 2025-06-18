@@ -1,14 +1,14 @@
 """Integration tests for API endpoints."""
 
 import json
+
 import pytest
+from ai_psadt_agent import create_app
+from ai_psadt_agent.domain_models.base import Base
+from ai_psadt_agent.domain_models.package import Package
+from ai_psadt_agent.infrastructure.db.session import SessionLocal
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-
-from src.ai_psadt_agent import create_app
-from src.ai_psadt_agent.domain_models.base import Base
-from src.ai_psadt_agent.domain_models.package import Package
-from src.ai_psadt_agent.infrastructure.db.session import SessionLocal
 
 
 @pytest.fixture
@@ -35,7 +35,7 @@ def test_db():
 
     # Patch the session for testing
     original_session = SessionLocal
-    import src.ai_psadt_agent.infrastructure.db.session as session_module
+    import ai_psadt_agent.infrastructure.db.session as session_module
 
     session_module.SessionLocal = TestSessionLocal
 

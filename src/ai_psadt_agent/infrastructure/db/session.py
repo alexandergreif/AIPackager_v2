@@ -2,9 +2,9 @@ from contextlib import contextmanager
 from typing import Generator
 
 from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker, Session
+from sqlalchemy.orm import Session, sessionmaker
 
-from src.ai_psadt_agent.domain_models.base import Base
+from ai_psadt_agent.domain_models.base import Base
 
 # SQLite database URL
 DATABASE_URL = "sqlite:///aipackager.db"

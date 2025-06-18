@@ -1,9 +1,9 @@
 from datetime import datetime
 from typing import Optional
 
-from sqlalchemy import String, Text, DateTime
-from sqlalchemy.orm import Mapped, mapped_column
 from pydantic import BaseModel
+from sqlalchemy import DateTime, String, Text
+from sqlalchemy.orm import Mapped, mapped_column
 
 from .base import Base
 
@@ -19,9 +19,7 @@ class Package(Base):
     installer_path: Mapped[Optional[str]] = mapped_column(String(500), nullable=True)
     script_text: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
-    updated_at: Mapped[datetime] = mapped_column(
-        DateTime, default=datetime.utcnow, onupdate=datetime.utcnow
-    )
+    updated_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
 
 class PackageCreate(BaseModel):

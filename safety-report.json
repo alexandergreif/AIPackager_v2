@@ -1,0 +1,2815 @@
+
+
++===========================================================================================================================================================================================+
+
+
+DEPRECATED: this command (`check`) has been DEPRECATED, and will be unsupported beyond 01 June 2024.
+
+
+We highly encourage switching to the new `scan` command which is easier to use, more powerful, and can be set up to mimic the deprecated command if required.
+
+
++===========================================================================================================================================================================================+
+
+
+{
+    "report_meta": {
+        "scan_target": "environment",
+        "scanned": [
+            "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages/setuptools/_vendor",
+            "/opt/anaconda3/lib/python3.12/lib-dynload",
+            "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages",
+            "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/bin",
+            "/opt/anaconda3/lib/python312.zip",
+            "/opt/anaconda3/lib/python3.12"
+        ],
+        "scanned_full_path": [
+            "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/bin",
+            "/opt/anaconda3/lib/python312.zip",
+            "/opt/anaconda3/lib/python3.12",
+            "/opt/anaconda3/lib/python3.12/lib-dynload",
+            "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages",
+            "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages/setuptools/_vendor"
+        ],
+        "target_languages": [
+            "python"
+        ],
+        "policy_file": null,
+        "policy_file_source": "local",
+        "audit_and_monitor": false,
+        "api_key": false,
+        "account": "",
+        "local_database_path": null,
+        "safety_version": "3.5.2",
+        "timestamp": "2025-06-18 08:17:42",
+        "packages_found": 181,
+        "vulnerabilities_found": 0,
+        "vulnerabilities_ignored": 0,
+        "remediations_recommended": 0,
+        "telemetry": {
+            "safety_options": {
+                "json": {
+                    "--json": 1
+                }
+            },
+            "safety_version": "3.5.2",
+            "safety_source": "cli",
+            "os_type": "Darwin",
+            "os_release": "24.0.0",
+            "os_description": "macOS-15.0.1-arm64-arm-64bit",
+            "python_version": "3.12.7",
+            "safety_command": "check"
+        },
+        "git": {
+            "branch": "sprint1_finished",
+            "tag": "",
+            "commit": "930a847f3af048b1e0354854fe3c5bb4e9fda8f4",
+            "dirty": "True",
+            "origin": "https://github.com/alexandergreif/AIPackager_v2.git"
+        },
+        "project": null,
+        "json_version": "1.1",
+        "remediations_attempted": 0,
+        "remediations_completed": 0,
+        "remediation_mode": "NON_INTERACTIVE"
+    },
+    "scanned_packages": {
+        "deprecated": {
+            "name": "deprecated",
+            "version": "1.2.18",
+            "requirements": [
+                {
+                    "raw": "deprecated==1.2.18",
+                    "extras": [],
+                    "marker": null,
+                    "name": "deprecated",
+                    "specifier": "==1.2.18",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "markupsafe": {
+            "name": "markupsafe",
+            "version": "3.0.2",
+            "requirements": [
+                {
+                    "raw": "markupsafe==3.0.2",
+                    "extras": [],
+                    "marker": null,
+                    "name": "markupsafe",
+                    "specifier": "==3.0.2",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "pyyaml": {
+            "name": "pyyaml",
+            "version": "6.0.2",
+            "requirements": [
+                {
+                    "raw": "pyyaml==6.0.2",
+                    "extras": [],
+                    "marker": null,
+                    "name": "pyyaml",
+                    "specifier": "==6.0.2",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "alembic": {
+            "name": "alembic",
+            "version": "1.16.2",
+            "requirements": [
+                {
+                    "raw": "alembic==1.16.2",
+                    "extras": [],
+                    "marker": null,
+                    "name": "alembic",
+                    "specifier": "==1.16.2",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "annotated-types": {
+            "name": "annotated-types",
+            "version": "0.7.0",
+            "requirements": [
+                {
+                    "raw": "annotated-types==0.7.0",
+                    "extras": [],
+                    "marker": null,
+                    "name": "annotated-types",
+                    "specifier": "==0.7.0",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "anyio": {
+            "name": "anyio",
+            "version": "4.9.0",
+            "requirements": [
+                {
+                    "raw": "anyio==4.9.0",
+                    "extras": [],
+                    "marker": null,
+                    "name": "anyio",
+                    "specifier": "==4.9.0",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "asgiref": {
+            "name": "asgiref",
+            "version": "3.8.1",
+            "requirements": [
+                {
+                    "raw": "asgiref==3.8.1",
+                    "extras": [],
+                    "marker": null,
+                    "name": "asgiref",
+                    "specifier": "==3.8.1",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "attrs": {
+            "name": "attrs",
+            "version": "25.3.0",
+            "requirements": [
+                {
+                    "raw": "attrs==25.3.0",
+                    "extras": [],
+                    "marker": null,
+                    "name": "attrs",
+                    "specifier": "==25.3.0",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "authlib": {
+            "name": "authlib",
+            "version": "1.6.0",
+            "requirements": [
+                {
+                    "raw": "authlib==1.6.0",
+                    "extras": [],
+                    "marker": null,
+                    "name": "authlib",
+                    "specifier": "==1.6.0",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "babel": {
+            "name": "babel",
+            "version": "2.17.0",
+            "requirements": [
+                {
+                    "raw": "babel==2.17.0",
+                    "extras": [],
+                    "marker": null,
+                    "name": "babel",
+                    "specifier": "==2.17.0",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "backoff": {
+            "name": "backoff",
+            "version": "2.2.1",
+            "requirements": [
+                {
+                    "raw": "backoff==2.2.1",
+                    "extras": [],
+                    "marker": null,
+                    "name": "backoff",
+                    "specifier": "==2.2.1",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "backrefs": {
+            "name": "backrefs",
+            "version": "5.8",
+            "requirements": [
+                {
+                    "raw": "backrefs==5.8",
+                    "extras": [],
+                    "marker": null,
+                    "name": "backrefs",
+                    "specifier": "==5.8",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "bandit": {
+            "name": "bandit",
+            "version": "1.8.5",
+            "requirements": [
+                {
+                    "raw": "bandit==1.8.5",
+                    "extras": [],
+                    "marker": null,
+                    "name": "bandit",
+                    "specifier": "==1.8.5",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "bcrypt": {
+            "name": "bcrypt",
+            "version": "4.3.0",
+            "requirements": [
+                {
+                    "raw": "bcrypt==4.3.0",
+                    "extras": [],
+                    "marker": null,
+                    "name": "bcrypt",
+                    "specifier": "==4.3.0",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "blinker": {
+            "name": "blinker",
+            "version": "1.9.0",
+            "requirements": [
+                {
+                    "raw": "blinker==1.9.0",
+                    "extras": [],
+                    "marker": null,
+                    "name": "blinker",
+                    "specifier": "==1.9.0",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "build": {
+            "name": "build",
+            "version": "1.2.2.post1",
+            "requirements": [
+                {
+                    "raw": "build==1.2.2.post1",
+                    "extras": [],
+                    "marker": null,
+                    "name": "build",
+                    "specifier": "==1.2.2.post1",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "cachetools": {
+            "name": "cachetools",
+            "version": "5.5.2",
+            "requirements": [
+                {
+                    "raw": "cachetools==5.5.2",
+                    "extras": [],
+                    "marker": null,
+                    "name": "cachetools",
+                    "specifier": "==5.5.2",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "certifi": {
+            "name": "certifi",
+            "version": "2025.6.15",
+            "requirements": [
+                {
+                    "raw": "certifi==2025.6.15",
+                    "extras": [],
+                    "marker": null,
+                    "name": "certifi",
+                    "specifier": "==2025.6.15",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "cffi": {
+            "name": "cffi",
+            "version": "1.17.1",
+            "requirements": [
+                {
+                    "raw": "cffi==1.17.1",
+                    "extras": [],
+                    "marker": null,
+                    "name": "cffi",
+                    "specifier": "==1.17.1",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "cfgv": {
+            "name": "cfgv",
+            "version": "3.4.0",
+            "requirements": [
+                {
+                    "raw": "cfgv==3.4.0",
+                    "extras": [],
+                    "marker": null,
+                    "name": "cfgv",
+                    "specifier": "==3.4.0",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "charset-normalizer": {
+            "name": "charset-normalizer",
+            "version": "3.4.2",
+            "requirements": [
+                {
+                    "raw": "charset-normalizer==3.4.2",
+                    "extras": [],
+                    "marker": null,
+                    "name": "charset-normalizer",
+                    "specifier": "==3.4.2",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "chromadb": {
+            "name": "chromadb",
+            "version": "1.0.12",
+            "requirements": [
+                {
+                    "raw": "chromadb==1.0.12",
+                    "extras": [],
+                    "marker": null,
+                    "name": "chromadb",
+                    "specifier": "==1.0.12",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "click": {
+            "name": "click",
+            "version": "8.1.8",
+            "requirements": [
+                {
+                    "raw": "click==8.1.8",
+                    "extras": [],
+                    "marker": null,
+                    "name": "click",
+                    "specifier": "==8.1.8",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "colorama": {
+            "name": "colorama",
+            "version": "0.4.6",
+            "requirements": [
+                {
+                    "raw": "colorama==0.4.6",
+                    "extras": [],
+                    "marker": null,
+                    "name": "colorama",
+                    "specifier": "==0.4.6",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "coloredlogs": {
+            "name": "coloredlogs",
+            "version": "15.0.1",
+            "requirements": [
+                {
+                    "raw": "coloredlogs==15.0.1",
+                    "extras": [],
+                    "marker": null,
+                    "name": "coloredlogs",
+                    "specifier": "==15.0.1",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "cryptography": {
+            "name": "cryptography",
+            "version": "45.0.4",
+            "requirements": [
+                {
+                    "raw": "cryptography==45.0.4",
+                    "extras": [],
+                    "marker": null,
+                    "name": "cryptography",
+                    "specifier": "==45.0.4",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "distlib": {
+            "name": "distlib",
+            "version": "0.3.9",
+            "requirements": [
+                {
+                    "raw": "distlib==0.3.9",
+                    "extras": [],
+                    "marker": null,
+                    "name": "distlib",
+                    "specifier": "==0.3.9",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "distro": {
+            "name": "distro",
+            "version": "1.9.0",
+            "requirements": [
+                {
+                    "raw": "distro==1.9.0",
+                    "extras": [],
+                    "marker": null,
+                    "name": "distro",
+                    "specifier": "==1.9.0",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "dparse": {
+            "name": "dparse",
+            "version": "0.6.4",
+            "requirements": [
+                {
+                    "raw": "dparse==0.6.4",
+                    "extras": [],
+                    "marker": null,
+                    "name": "dparse",
+                    "specifier": "==0.6.4",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "durationpy": {
+            "name": "durationpy",
+            "version": "0.10",
+            "requirements": [
+                {
+                    "raw": "durationpy==0.10",
+                    "extras": [],
+                    "marker": null,
+                    "name": "durationpy",
+                    "specifier": "==0.10",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "fastapi": {
+            "name": "fastapi",
+            "version": "0.115.9",
+            "requirements": [
+                {
+                    "raw": "fastapi==0.115.9",
+                    "extras": [],
+                    "marker": null,
+                    "name": "fastapi",
+                    "specifier": "==0.115.9",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "filelock": {
+            "name": "filelock",
+            "version": "3.16.1",
+            "requirements": [
+                {
+                    "raw": "filelock==3.16.1",
+                    "extras": [],
+                    "marker": null,
+                    "name": "filelock",
+                    "specifier": "==3.16.1",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "flask": {
+            "name": "flask",
+            "version": "3.1.1",
+            "requirements": [
+                {
+                    "raw": "flask==3.1.1",
+                    "extras": [],
+                    "marker": null,
+                    "name": "flask",
+                    "specifier": "==3.1.1",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "flask-cors": {
+            "name": "flask-cors",
+            "version": "6.0.1",
+            "requirements": [
+                {
+                    "raw": "flask-cors==6.0.1",
+                    "extras": [],
+                    "marker": null,
+                    "name": "flask-cors",
+                    "specifier": "==6.0.1",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "flask-limiter": {
+            "name": "flask-limiter",
+            "version": "3.12",
+            "requirements": [
+                {
+                    "raw": "flask-limiter==3.12",
+                    "extras": [],
+                    "marker": null,
+                    "name": "flask-limiter",
+                    "specifier": "==3.12",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "flask-pydantic": {
+            "name": "flask-pydantic",
+            "version": "0.13.1",
+            "requirements": [
+                {
+                    "raw": "flask-pydantic==0.13.1",
+                    "extras": [],
+                    "marker": null,
+                    "name": "flask-pydantic",
+                    "specifier": "==0.13.1",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "flatbuffers": {
+            "name": "flatbuffers",
+            "version": "25.2.10",
+            "requirements": [
+                {
+                    "raw": "flatbuffers==25.2.10",
+                    "extras": [],
+                    "marker": null,
+                    "name": "flatbuffers",
+                    "specifier": "==25.2.10",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "fsspec": {
+            "name": "fsspec",
+            "version": "2025.5.1",
+            "requirements": [
+                {
+                    "raw": "fsspec==2025.5.1",
+                    "extras": [],
+                    "marker": null,
+                    "name": "fsspec",
+                    "specifier": "==2025.5.1",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "ghp-import": {
+            "name": "ghp-import",
+            "version": "2.1.0",
+            "requirements": [
+                {
+                    "raw": "ghp-import==2.1.0",
+                    "extras": [],
+                    "marker": null,
+                    "name": "ghp-import",
+                    "specifier": "==2.1.0",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "google-auth": {
+            "name": "google-auth",
+            "version": "2.40.3",
+            "requirements": [
+                {
+                    "raw": "google-auth==2.40.3",
+                    "extras": [],
+                    "marker": null,
+                    "name": "google-auth",
+                    "specifier": "==2.40.3",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "googleapis-common-protos": {
+            "name": "googleapis-common-protos",
+            "version": "1.70.0",
+            "requirements": [
+                {
+                    "raw": "googleapis-common-protos==1.70.0",
+                    "extras": [],
+                    "marker": null,
+                    "name": "googleapis-common-protos",
+                    "specifier": "==1.70.0",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "grpcio": {
+            "name": "grpcio",
+            "version": "1.73.0",
+            "requirements": [
+                {
+                    "raw": "grpcio==1.73.0",
+                    "extras": [],
+                    "marker": null,
+                    "name": "grpcio",
+                    "specifier": "==1.73.0",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "h11": {
+            "name": "h11",
+            "version": "0.16.0",
+            "requirements": [
+                {
+                    "raw": "h11==0.16.0",
+                    "extras": [],
+                    "marker": null,
+                    "name": "h11",
+                    "specifier": "==0.16.0",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "hf-xet": {
+            "name": "hf-xet",
+            "version": "1.1.4",
+            "requirements": [
+                {
+                    "raw": "hf-xet==1.1.4",
+                    "extras": [],
+                    "marker": null,
+                    "name": "hf-xet",
+                    "specifier": "==1.1.4",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "httpcore": {
+            "name": "httpcore",
+            "version": "1.0.9",
+            "requirements": [
+                {
+                    "raw": "httpcore==1.0.9",
+                    "extras": [],
+                    "marker": null,
+                    "name": "httpcore",
+                    "specifier": "==1.0.9",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "httptools": {
+            "name": "httptools",
+            "version": "0.6.4",
+            "requirements": [
+                {
+                    "raw": "httptools==0.6.4",
+                    "extras": [],
+                    "marker": null,
+                    "name": "httptools",
+                    "specifier": "==0.6.4",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "httpx": {
+            "name": "httpx",
+            "version": "0.28.1",
+            "requirements": [
+                {
+                    "raw": "httpx==0.28.1",
+                    "extras": [],
+                    "marker": null,
+                    "name": "httpx",
+                    "specifier": "==0.28.1",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "huggingface-hub": {
+            "name": "huggingface-hub",
+            "version": "0.33.0",
+            "requirements": [
+                {
+                    "raw": "huggingface-hub==0.33.0",
+                    "extras": [],
+                    "marker": null,
+                    "name": "huggingface-hub",
+                    "specifier": "==0.33.0",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "humanfriendly": {
+            "name": "humanfriendly",
+            "version": "10.0",
+            "requirements": [
+                {
+                    "raw": "humanfriendly==10.0",
+                    "extras": [],
+                    "marker": null,
+                    "name": "humanfriendly",
+                    "specifier": "==10.0",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "identify": {
+            "name": "identify",
+            "version": "2.6.12",
+            "requirements": [
+                {
+                    "raw": "identify==2.6.12",
+                    "extras": [],
+                    "marker": null,
+                    "name": "identify",
+                    "specifier": "==2.6.12",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "idna": {
+            "name": "idna",
+            "version": "3.10",
+            "requirements": [
+                {
+                    "raw": "idna==3.10",
+                    "extras": [],
+                    "marker": null,
+                    "name": "idna",
+                    "specifier": "==3.10",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "importlib-metadata": {
+            "name": "importlib-metadata",
+            "version": "8.7.0",
+            "requirements": [
+                {
+                    "raw": "importlib-metadata==8.7.0",
+                    "extras": [],
+                    "marker": null,
+                    "name": "importlib-metadata",
+                    "specifier": "==8.7.0",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "importlib-resources": {
+            "name": "importlib-resources",
+            "version": "6.5.2",
+            "requirements": [
+                {
+                    "raw": "importlib-resources==6.5.2",
+                    "extras": [],
+                    "marker": null,
+                    "name": "importlib-resources",
+                    "specifier": "==6.5.2",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "iniconfig": {
+            "name": "iniconfig",
+            "version": "2.1.0",
+            "requirements": [
+                {
+                    "raw": "iniconfig==2.1.0",
+                    "extras": [],
+                    "marker": null,
+                    "name": "iniconfig",
+                    "specifier": "==2.1.0",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "itsdangerous": {
+            "name": "itsdangerous",
+            "version": "2.2.0",
+            "requirements": [
+                {
+                    "raw": "itsdangerous==2.2.0",
+                    "extras": [],
+                    "marker": null,
+                    "name": "itsdangerous",
+                    "specifier": "==2.2.0",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "jinja2": {
+            "name": "jinja2",
+            "version": "3.1.6",
+            "requirements": [
+                {
+                    "raw": "jinja2==3.1.6",
+                    "extras": [],
+                    "marker": null,
+                    "name": "jinja2",
+                    "specifier": "==3.1.6",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "jiter": {
+            "name": "jiter",
+            "version": "0.10.0",
+            "requirements": [
+                {
+                    "raw": "jiter==0.10.0",
+                    "extras": [],
+                    "marker": null,
+                    "name": "jiter",
+                    "specifier": "==0.10.0",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "joblib": {
+            "name": "joblib",
+            "version": "1.5.1",
+            "requirements": [
+                {
+                    "raw": "joblib==1.5.1",
+                    "extras": [],
+                    "marker": null,
+                    "name": "joblib",
+                    "specifier": "==1.5.1",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "jsonschema": {
+            "name": "jsonschema",
+            "version": "4.24.0",
+            "requirements": [
+                {
+                    "raw": "jsonschema==4.24.0",
+                    "extras": [],
+                    "marker": null,
+                    "name": "jsonschema",
+                    "specifier": "==4.24.0",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "jsonschema-specifications": {
+            "name": "jsonschema-specifications",
+            "version": "2025.4.1",
+            "requirements": [
+                {
+                    "raw": "jsonschema-specifications==2025.4.1",
+                    "extras": [],
+                    "marker": null,
+                    "name": "jsonschema-specifications",
+                    "specifier": "==2025.4.1",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "kubernetes": {
+            "name": "kubernetes",
+            "version": "33.1.0",
+            "requirements": [
+                {
+                    "raw": "kubernetes==33.1.0",
+                    "extras": [],
+                    "marker": null,
+                    "name": "kubernetes",
+                    "specifier": "==33.1.0",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "libcst": {
+            "name": "libcst",
+            "version": "1.7.0",
+            "requirements": [
+                {
+                    "raw": "libcst==1.7.0",
+                    "extras": [],
+                    "marker": null,
+                    "name": "libcst",
+                    "specifier": "==1.7.0",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "limits": {
+            "name": "limits",
+            "version": "5.4.0",
+            "requirements": [
+                {
+                    "raw": "limits==5.4.0",
+                    "extras": [],
+                    "marker": null,
+                    "name": "limits",
+                    "specifier": "==5.4.0",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "linkify-it-py": {
+            "name": "linkify-it-py",
+            "version": "2.0.3",
+            "requirements": [
+                {
+                    "raw": "linkify-it-py==2.0.3",
+                    "extras": [],
+                    "marker": null,
+                    "name": "linkify-it-py",
+                    "specifier": "==2.0.3",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "loguru": {
+            "name": "loguru",
+            "version": "0.7.3",
+            "requirements": [
+                {
+                    "raw": "loguru==0.7.3",
+                    "extras": [],
+                    "marker": null,
+                    "name": "loguru",
+                    "specifier": "==0.7.3",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "mako": {
+            "name": "mako",
+            "version": "1.3.10",
+            "requirements": [
+                {
+                    "raw": "mako==1.3.10",
+                    "extras": [],
+                    "marker": null,
+                    "name": "mako",
+                    "specifier": "==1.3.10",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "markdown": {
+            "name": "markdown",
+            "version": "3.8",
+            "requirements": [
+                {
+                    "raw": "markdown==3.8",
+                    "extras": [],
+                    "marker": null,
+                    "name": "markdown",
+                    "specifier": "==3.8",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "markdown-it-py": {
+            "name": "markdown-it-py",
+            "version": "3.0.0",
+            "requirements": [
+                {
+                    "raw": "markdown-it-py==3.0.0",
+                    "extras": [],
+                    "marker": null,
+                    "name": "markdown-it-py",
+                    "specifier": "==3.0.0",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "marshmallow": {
+            "name": "marshmallow",
+            "version": "4.0.0",
+            "requirements": [
+                {
+                    "raw": "marshmallow==4.0.0",
+                    "extras": [],
+                    "marker": null,
+                    "name": "marshmallow",
+                    "specifier": "==4.0.0",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "mdit-py-plugins": {
+            "name": "mdit-py-plugins",
+            "version": "0.4.2",
+            "requirements": [
+                {
+                    "raw": "mdit-py-plugins==0.4.2",
+                    "extras": [],
+                    "marker": null,
+                    "name": "mdit-py-plugins",
+                    "specifier": "==0.4.2",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "mdurl": {
+            "name": "mdurl",
+            "version": "0.1.2",
+            "requirements": [
+                {
+                    "raw": "mdurl==0.1.2",
+                    "extras": [],
+                    "marker": null,
+                    "name": "mdurl",
+                    "specifier": "==0.1.2",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "mergedeep": {
+            "name": "mergedeep",
+            "version": "1.3.4",
+            "requirements": [
+                {
+                    "raw": "mergedeep==1.3.4",
+                    "extras": [],
+                    "marker": null,
+                    "name": "mergedeep",
+                    "specifier": "==1.3.4",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "mkdocs": {
+            "name": "mkdocs",
+            "version": "1.6.1",
+            "requirements": [
+                {
+                    "raw": "mkdocs==1.6.1",
+                    "extras": [],
+                    "marker": null,
+                    "name": "mkdocs",
+                    "specifier": "==1.6.1",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "mkdocs-get-deps": {
+            "name": "mkdocs-get-deps",
+            "version": "0.2.0",
+            "requirements": [
+                {
+                    "raw": "mkdocs-get-deps==0.2.0",
+                    "extras": [],
+                    "marker": null,
+                    "name": "mkdocs-get-deps",
+                    "specifier": "==0.2.0",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "mkdocs-material": {
+            "name": "mkdocs-material",
+            "version": "9.6.14",
+            "requirements": [
+                {
+                    "raw": "mkdocs-material==9.6.14",
+                    "extras": [],
+                    "marker": null,
+                    "name": "mkdocs-material",
+                    "specifier": "==9.6.14",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "mkdocs-material-extensions": {
+            "name": "mkdocs-material-extensions",
+            "version": "1.3.1",
+            "requirements": [
+                {
+                    "raw": "mkdocs-material-extensions==1.3.1",
+                    "extras": [],
+                    "marker": null,
+                    "name": "mkdocs-material-extensions",
+                    "specifier": "==1.3.1",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "mmh3": {
+            "name": "mmh3",
+            "version": "5.1.0",
+            "requirements": [
+                {
+                    "raw": "mmh3==5.1.0",
+                    "extras": [],
+                    "marker": null,
+                    "name": "mmh3",
+                    "specifier": "==5.1.0",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "mpmath": {
+            "name": "mpmath",
+            "version": "1.3.0",
+            "requirements": [
+                {
+                    "raw": "mpmath==1.3.0",
+                    "extras": [],
+                    "marker": null,
+                    "name": "mpmath",
+                    "specifier": "==1.3.0",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "mutmut": {
+            "name": "mutmut",
+            "version": "3.3.0",
+            "requirements": [
+                {
+                    "raw": "mutmut==3.3.0",
+                    "extras": [],
+                    "marker": null,
+                    "name": "mutmut",
+                    "specifier": "==3.3.0",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "mypy": {
+            "name": "mypy",
+            "version": "1.16.1",
+            "requirements": [
+                {
+                    "raw": "mypy==1.16.1",
+                    "extras": [],
+                    "marker": null,
+                    "name": "mypy",
+                    "specifier": "==1.16.1",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "mypy-extensions": {
+            "name": "mypy-extensions",
+            "version": "1.1.0",
+            "requirements": [
+                {
+                    "raw": "mypy-extensions==1.1.0",
+                    "extras": [],
+                    "marker": null,
+                    "name": "mypy-extensions",
+                    "specifier": "==1.1.0",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "nltk": {
+            "name": "nltk",
+            "version": "3.9.1",
+            "requirements": [
+                {
+                    "raw": "nltk==3.9.1",
+                    "extras": [],
+                    "marker": null,
+                    "name": "nltk",
+                    "specifier": "==3.9.1",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "nodeenv": {
+            "name": "nodeenv",
+            "version": "1.9.1",
+            "requirements": [
+                {
+                    "raw": "nodeenv==1.9.1",
+                    "extras": [],
+                    "marker": null,
+                    "name": "nodeenv",
+                    "specifier": "==1.9.1",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "numpy": {
+            "name": "numpy",
+            "version": "2.3.0",
+            "requirements": [
+                {
+                    "raw": "numpy==2.3.0",
+                    "extras": [],
+                    "marker": null,
+                    "name": "numpy",
+                    "specifier": "==2.3.0",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "oauthlib": {
+            "name": "oauthlib",
+            "version": "3.2.2",
+            "requirements": [
+                {
+                    "raw": "oauthlib==3.2.2",
+                    "extras": [],
+                    "marker": null,
+                    "name": "oauthlib",
+                    "specifier": "==3.2.2",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "onnxruntime": {
+            "name": "onnxruntime",
+            "version": "1.22.0",
+            "requirements": [
+                {
+                    "raw": "onnxruntime==1.22.0",
+                    "extras": [],
+                    "marker": null,
+                    "name": "onnxruntime",
+                    "specifier": "==1.22.0",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "openai": {
+            "name": "openai",
+            "version": "1.88.0",
+            "requirements": [
+                {
+                    "raw": "openai==1.88.0",
+                    "extras": [],
+                    "marker": null,
+                    "name": "openai",
+                    "specifier": "==1.88.0",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "opentelemetry-api": {
+            "name": "opentelemetry-api",
+            "version": "1.34.1",
+            "requirements": [
+                {
+                    "raw": "opentelemetry-api==1.34.1",
+                    "extras": [],
+                    "marker": null,
+                    "name": "opentelemetry-api",
+                    "specifier": "==1.34.1",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "opentelemetry-exporter-otlp-proto-common": {
+            "name": "opentelemetry-exporter-otlp-proto-common",
+            "version": "1.34.1",
+            "requirements": [
+                {
+                    "raw": "opentelemetry-exporter-otlp-proto-common==1.34.1",
+                    "extras": [],
+                    "marker": null,
+                    "name": "opentelemetry-exporter-otlp-proto-common",
+                    "specifier": "==1.34.1",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "opentelemetry-exporter-otlp-proto-grpc": {
+            "name": "opentelemetry-exporter-otlp-proto-grpc",
+            "version": "1.34.1",
+            "requirements": [
+                {
+                    "raw": "opentelemetry-exporter-otlp-proto-grpc==1.34.1",
+                    "extras": [],
+                    "marker": null,
+                    "name": "opentelemetry-exporter-otlp-proto-grpc",
+                    "specifier": "==1.34.1",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "opentelemetry-instrumentation": {
+            "name": "opentelemetry-instrumentation",
+            "version": "0.55b1",
+            "requirements": [
+                {
+                    "raw": "opentelemetry-instrumentation==0.55b1",
+                    "extras": [],
+                    "marker": null,
+                    "name": "opentelemetry-instrumentation",
+                    "specifier": "==0.55b1",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "opentelemetry-instrumentation-asgi": {
+            "name": "opentelemetry-instrumentation-asgi",
+            "version": "0.55b1",
+            "requirements": [
+                {
+                    "raw": "opentelemetry-instrumentation-asgi==0.55b1",
+                    "extras": [],
+                    "marker": null,
+                    "name": "opentelemetry-instrumentation-asgi",
+                    "specifier": "==0.55b1",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "opentelemetry-instrumentation-fastapi": {
+            "name": "opentelemetry-instrumentation-fastapi",
+            "version": "0.55b1",
+            "requirements": [
+                {
+                    "raw": "opentelemetry-instrumentation-fastapi==0.55b1",
+                    "extras": [],
+                    "marker": null,
+                    "name": "opentelemetry-instrumentation-fastapi",
+                    "specifier": "==0.55b1",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "opentelemetry-proto": {
+            "name": "opentelemetry-proto",
+            "version": "1.34.1",
+            "requirements": [
+                {
+                    "raw": "opentelemetry-proto==1.34.1",
+                    "extras": [],
+                    "marker": null,
+                    "name": "opentelemetry-proto",
+                    "specifier": "==1.34.1",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "opentelemetry-sdk": {
+            "name": "opentelemetry-sdk",
+            "version": "1.34.1",
+            "requirements": [
+                {
+                    "raw": "opentelemetry-sdk==1.34.1",
+                    "extras": [],
+                    "marker": null,
+                    "name": "opentelemetry-sdk",
+                    "specifier": "==1.34.1",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "opentelemetry-semantic-conventions": {
+            "name": "opentelemetry-semantic-conventions",
+            "version": "0.55b1",
+            "requirements": [
+                {
+                    "raw": "opentelemetry-semantic-conventions==0.55b1",
+                    "extras": [],
+                    "marker": null,
+                    "name": "opentelemetry-semantic-conventions",
+                    "specifier": "==0.55b1",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "opentelemetry-util-http": {
+            "name": "opentelemetry-util-http",
+            "version": "0.55b1",
+            "requirements": [
+                {
+                    "raw": "opentelemetry-util-http==0.55b1",
+                    "extras": [],
+                    "marker": null,
+                    "name": "opentelemetry-util-http",
+                    "specifier": "==0.55b1",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "ordered-set": {
+            "name": "ordered-set",
+            "version": "4.1.0",
+            "requirements": [
+                {
+                    "raw": "ordered-set==4.1.0",
+                    "extras": [],
+                    "marker": null,
+                    "name": "ordered-set",
+                    "specifier": "==4.1.0",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "orjson": {
+            "name": "orjson",
+            "version": "3.10.18",
+            "requirements": [
+                {
+                    "raw": "orjson==3.10.18",
+                    "extras": [],
+                    "marker": null,
+                    "name": "orjson",
+                    "specifier": "==3.10.18",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "overrides": {
+            "name": "overrides",
+            "version": "7.7.0",
+            "requirements": [
+                {
+                    "raw": "overrides==7.7.0",
+                    "extras": [],
+                    "marker": null,
+                    "name": "overrides",
+                    "specifier": "==7.7.0",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "packaging": {
+            "name": "packaging",
+            "version": "25.0",
+            "requirements": [
+                {
+                    "raw": "packaging==25.0",
+                    "extras": [],
+                    "marker": null,
+                    "name": "packaging",
+                    "specifier": "==25.0",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "paginate": {
+            "name": "paginate",
+            "version": "0.5.7",
+            "requirements": [
+                {
+                    "raw": "paginate==0.5.7",
+                    "extras": [],
+                    "marker": null,
+                    "name": "paginate",
+                    "specifier": "==0.5.7",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "pathspec": {
+            "name": "pathspec",
+            "version": "0.12.1",
+            "requirements": [
+                {
+                    "raw": "pathspec==0.12.1",
+                    "extras": [],
+                    "marker": null,
+                    "name": "pathspec",
+                    "specifier": "==0.12.1",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "pbr": {
+            "name": "pbr",
+            "version": "6.1.1",
+            "requirements": [
+                {
+                    "raw": "pbr==6.1.1",
+                    "extras": [],
+                    "marker": null,
+                    "name": "pbr",
+                    "specifier": "==6.1.1",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "pip": {
+            "name": "pip",
+            "version": "25.1.1",
+            "requirements": [
+                {
+                    "raw": "pip==25.1.1",
+                    "extras": [],
+                    "marker": null,
+                    "name": "pip",
+                    "specifier": "==25.1.1",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "pip-tools": {
+            "name": "pip-tools",
+            "version": "7.4.1",
+            "requirements": [
+                {
+                    "raw": "pip-tools==7.4.1",
+                    "extras": [],
+                    "marker": null,
+                    "name": "pip-tools",
+                    "specifier": "==7.4.1",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "platformdirs": {
+            "name": "platformdirs",
+            "version": "4.3.8",
+            "requirements": [
+                {
+                    "raw": "platformdirs==4.3.8",
+                    "extras": [],
+                    "marker": null,
+                    "name": "platformdirs",
+                    "specifier": "==4.3.8",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "pluggy": {
+            "name": "pluggy",
+            "version": "1.6.0",
+            "requirements": [
+                {
+                    "raw": "pluggy==1.6.0",
+                    "extras": [],
+                    "marker": null,
+                    "name": "pluggy",
+                    "specifier": "==1.6.0",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "posthog": {
+            "name": "posthog",
+            "version": "5.0.0",
+            "requirements": [
+                {
+                    "raw": "posthog==5.0.0",
+                    "extras": [],
+                    "marker": null,
+                    "name": "posthog",
+                    "specifier": "==5.0.0",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "pre-commit": {
+            "name": "pre-commit",
+            "version": "4.2.0",
+            "requirements": [
+                {
+                    "raw": "pre-commit==4.2.0",
+                    "extras": [],
+                    "marker": null,
+                    "name": "pre-commit",
+                    "specifier": "==4.2.0",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "prometheus-client": {
+            "name": "prometheus-client",
+            "version": "0.22.1",
+            "requirements": [
+                {
+                    "raw": "prometheus-client==0.22.1",
+                    "extras": [],
+                    "marker": null,
+                    "name": "prometheus-client",
+                    "specifier": "==0.22.1",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "prometheus-flask-exporter": {
+            "name": "prometheus-flask-exporter",
+            "version": "0.23.2",
+            "requirements": [
+                {
+                    "raw": "prometheus-flask-exporter==0.23.2",
+                    "extras": [],
+                    "marker": null,
+                    "name": "prometheus-flask-exporter",
+                    "specifier": "==0.23.2",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "protobuf": {
+            "name": "protobuf",
+            "version": "5.29.5",
+            "requirements": [
+                {
+                    "raw": "protobuf==5.29.5",
+                    "extras": [],
+                    "marker": null,
+                    "name": "protobuf",
+                    "specifier": "==5.29.5",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "psutil": {
+            "name": "psutil",
+            "version": "6.1.1",
+            "requirements": [
+                {
+                    "raw": "psutil==6.1.1",
+                    "extras": [],
+                    "marker": null,
+                    "name": "psutil",
+                    "specifier": "==6.1.1",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "pyasn1": {
+            "name": "pyasn1",
+            "version": "0.6.1",
+            "requirements": [
+                {
+                    "raw": "pyasn1==0.6.1",
+                    "extras": [],
+                    "marker": null,
+                    "name": "pyasn1",
+                    "specifier": "==0.6.1",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "pyasn1-modules": {
+            "name": "pyasn1-modules",
+            "version": "0.4.2",
+            "requirements": [
+                {
+                    "raw": "pyasn1-modules==0.4.2",
+                    "extras": [],
+                    "marker": null,
+                    "name": "pyasn1-modules",
+                    "specifier": "==0.4.2",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "pycparser": {
+            "name": "pycparser",
+            "version": "2.22",
+            "requirements": [
+                {
+                    "raw": "pycparser==2.22",
+                    "extras": [],
+                    "marker": null,
+                    "name": "pycparser",
+                    "specifier": "==2.22",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "pydantic": {
+            "name": "pydantic",
+            "version": "2.9.2",
+            "requirements": [
+                {
+                    "raw": "pydantic==2.9.2",
+                    "extras": [],
+                    "marker": null,
+                    "name": "pydantic",
+                    "specifier": "==2.9.2",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "pydantic-core": {
+            "name": "pydantic-core",
+            "version": "2.23.4",
+            "requirements": [
+                {
+                    "raw": "pydantic-core==2.23.4",
+                    "extras": [],
+                    "marker": null,
+                    "name": "pydantic-core",
+                    "specifier": "==2.23.4",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "pygments": {
+            "name": "pygments",
+            "version": "2.19.1",
+            "requirements": [
+                {
+                    "raw": "pygments==2.19.1",
+                    "extras": [],
+                    "marker": null,
+                    "name": "pygments",
+                    "specifier": "==2.19.1",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "pymdown-extensions": {
+            "name": "pymdown-extensions",
+            "version": "10.15",
+            "requirements": [
+                {
+                    "raw": "pymdown-extensions==10.15",
+                    "extras": [],
+                    "marker": null,
+                    "name": "pymdown-extensions",
+                    "specifier": "==10.15",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "pypika": {
+            "name": "pypika",
+            "version": "0.48.9",
+            "requirements": [
+                {
+                    "raw": "pypika==0.48.9",
+                    "extras": [],
+                    "marker": null,
+                    "name": "pypika",
+                    "specifier": "==0.48.9",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "pyproject-hooks": {
+            "name": "pyproject-hooks",
+            "version": "1.2.0",
+            "requirements": [
+                {
+                    "raw": "pyproject-hooks==1.2.0",
+                    "extras": [],
+                    "marker": null,
+                    "name": "pyproject-hooks",
+                    "specifier": "==1.2.0",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "pytest": {
+            "name": "pytest",
+            "version": "8.4.0",
+            "requirements": [
+                {
+                    "raw": "pytest==8.4.0",
+                    "extras": [],
+                    "marker": null,
+                    "name": "pytest",
+                    "specifier": "==8.4.0",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "python-dateutil": {
+            "name": "python-dateutil",
+            "version": "2.9.0.post0",
+            "requirements": [
+                {
+                    "raw": "python-dateutil==2.9.0.post0",
+                    "extras": [],
+                    "marker": null,
+                    "name": "python-dateutil",
+                    "specifier": "==2.9.0.post0",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "python-dotenv": {
+            "name": "python-dotenv",
+            "version": "1.1.0",
+            "requirements": [
+                {
+                    "raw": "python-dotenv==1.1.0",
+                    "extras": [],
+                    "marker": null,
+                    "name": "python-dotenv",
+                    "specifier": "==1.1.0",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "pyyaml-env-tag": {
+            "name": "pyyaml-env-tag",
+            "version": "1.1",
+            "requirements": [
+                {
+                    "raw": "pyyaml-env-tag==1.1",
+                    "extras": [],
+                    "marker": null,
+                    "name": "pyyaml-env-tag",
+                    "specifier": "==1.1",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "referencing": {
+            "name": "referencing",
+            "version": "0.36.2",
+            "requirements": [
+                {
+                    "raw": "referencing==0.36.2",
+                    "extras": [],
+                    "marker": null,
+                    "name": "referencing",
+                    "specifier": "==0.36.2",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "regex": {
+            "name": "regex",
+            "version": "2024.11.6",
+            "requirements": [
+                {
+                    "raw": "regex==2024.11.6",
+                    "extras": [],
+                    "marker": null,
+                    "name": "regex",
+                    "specifier": "==2024.11.6",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "requests": {
+            "name": "requests",
+            "version": "2.32.4",
+            "requirements": [
+                {
+                    "raw": "requests==2.32.4",
+                    "extras": [],
+                    "marker": null,
+                    "name": "requests",
+                    "specifier": "==2.32.4",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "requests-oauthlib": {
+            "name": "requests-oauthlib",
+            "version": "2.0.0",
+            "requirements": [
+                {
+                    "raw": "requests-oauthlib==2.0.0",
+                    "extras": [],
+                    "marker": null,
+                    "name": "requests-oauthlib",
+                    "specifier": "==2.0.0",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "rich": {
+            "name": "rich",
+            "version": "13.9.4",
+            "requirements": [
+                {
+                    "raw": "rich==13.9.4",
+                    "extras": [],
+                    "marker": null,
+                    "name": "rich",
+                    "specifier": "==13.9.4",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "rpds-py": {
+            "name": "rpds-py",
+            "version": "0.25.1",
+            "requirements": [
+                {
+                    "raw": "rpds-py==0.25.1",
+                    "extras": [],
+                    "marker": null,
+                    "name": "rpds-py",
+                    "specifier": "==0.25.1",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "rsa": {
+            "name": "rsa",
+            "version": "4.9.1",
+            "requirements": [
+                {
+                    "raw": "rsa==4.9.1",
+                    "extras": [],
+                    "marker": null,
+                    "name": "rsa",
+                    "specifier": "==4.9.1",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "ruamel.yaml": {
+            "name": "ruamel.yaml",
+            "version": "0.18.14",
+            "requirements": [
+                {
+                    "raw": "ruamel.yaml==0.18.14",
+                    "extras": [],
+                    "marker": null,
+                    "name": "ruamel.yaml",
+                    "specifier": "==0.18.14",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "ruamel.yaml.clib": {
+            "name": "ruamel.yaml.clib",
+            "version": "0.2.12",
+            "requirements": [
+                {
+                    "raw": "ruamel.yaml.clib==0.2.12",
+                    "extras": [],
+                    "marker": null,
+                    "name": "ruamel.yaml.clib",
+                    "specifier": "==0.2.12",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "ruff": {
+            "name": "ruff",
+            "version": "0.12.0",
+            "requirements": [
+                {
+                    "raw": "ruff==0.12.0",
+                    "extras": [],
+                    "marker": null,
+                    "name": "ruff",
+                    "specifier": "==0.12.0",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "safety": {
+            "name": "safety",
+            "version": "3.5.2",
+            "requirements": [
+                {
+                    "raw": "safety==3.5.2",
+                    "extras": [],
+                    "marker": null,
+                    "name": "safety",
+                    "specifier": "==3.5.2",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "safety-schemas": {
+            "name": "safety-schemas",
+            "version": "0.0.14",
+            "requirements": [
+                {
+                    "raw": "safety-schemas==0.0.14",
+                    "extras": [],
+                    "marker": null,
+                    "name": "safety-schemas",
+                    "specifier": "==0.0.14",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "setproctitle": {
+            "name": "setproctitle",
+            "version": "1.3.6",
+            "requirements": [
+                {
+                    "raw": "setproctitle==1.3.6",
+                    "extras": [],
+                    "marker": null,
+                    "name": "setproctitle",
+                    "specifier": "==1.3.6",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "setuptools": {
+            "name": "setuptools",
+            "version": "80.9.0",
+            "requirements": [
+                {
+                    "raw": "setuptools==80.9.0",
+                    "extras": [],
+                    "marker": null,
+                    "name": "setuptools",
+                    "specifier": "==80.9.0",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "shellingham": {
+            "name": "shellingham",
+            "version": "1.5.4",
+            "requirements": [
+                {
+                    "raw": "shellingham==1.5.4",
+                    "extras": [],
+                    "marker": null,
+                    "name": "shellingham",
+                    "specifier": "==1.5.4",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "shiv": {
+            "name": "shiv",
+            "version": "1.0.8",
+            "requirements": [
+                {
+                    "raw": "shiv==1.0.8",
+                    "extras": [],
+                    "marker": null,
+                    "name": "shiv",
+                    "specifier": "==1.0.8",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "six": {
+            "name": "six",
+            "version": "1.17.0",
+            "requirements": [
+                {
+                    "raw": "six==1.17.0",
+                    "extras": [],
+                    "marker": null,
+                    "name": "six",
+                    "specifier": "==1.17.0",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "sniffio": {
+            "name": "sniffio",
+            "version": "1.3.1",
+            "requirements": [
+                {
+                    "raw": "sniffio==1.3.1",
+                    "extras": [],
+                    "marker": null,
+                    "name": "sniffio",
+                    "specifier": "==1.3.1",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "sqlalchemy": {
+            "name": "sqlalchemy",
+            "version": "2.0.41",
+            "requirements": [
+                {
+                    "raw": "sqlalchemy==2.0.41",
+                    "extras": [],
+                    "marker": null,
+                    "name": "sqlalchemy",
+                    "specifier": "==2.0.41",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "starlette": {
+            "name": "starlette",
+            "version": "0.45.3",
+            "requirements": [
+                {
+                    "raw": "starlette==0.45.3",
+                    "extras": [],
+                    "marker": null,
+                    "name": "starlette",
+                    "specifier": "==0.45.3",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "stevedore": {
+            "name": "stevedore",
+            "version": "5.4.1",
+            "requirements": [
+                {
+                    "raw": "stevedore==5.4.1",
+                    "extras": [],
+                    "marker": null,
+                    "name": "stevedore",
+                    "specifier": "==5.4.1",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "sympy": {
+            "name": "sympy",
+            "version": "1.14.0",
+            "requirements": [
+                {
+                    "raw": "sympy==1.14.0",
+                    "extras": [],
+                    "marker": null,
+                    "name": "sympy",
+                    "specifier": "==1.14.0",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "tenacity": {
+            "name": "tenacity",
+            "version": "9.1.2",
+            "requirements": [
+                {
+                    "raw": "tenacity==9.1.2",
+                    "extras": [],
+                    "marker": null,
+                    "name": "tenacity",
+                    "specifier": "==9.1.2",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "textual": {
+            "name": "textual",
+            "version": "3.4.0",
+            "requirements": [
+                {
+                    "raw": "textual==3.4.0",
+                    "extras": [],
+                    "marker": null,
+                    "name": "textual",
+                    "specifier": "==3.4.0",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "tokenizers": {
+            "name": "tokenizers",
+            "version": "0.21.1",
+            "requirements": [
+                {
+                    "raw": "tokenizers==0.21.1",
+                    "extras": [],
+                    "marker": null,
+                    "name": "tokenizers",
+                    "specifier": "==0.21.1",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "tomlkit": {
+            "name": "tomlkit",
+            "version": "0.13.3",
+            "requirements": [
+                {
+                    "raw": "tomlkit==0.13.3",
+                    "extras": [],
+                    "marker": null,
+                    "name": "tomlkit",
+                    "specifier": "==0.13.3",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "tqdm": {
+            "name": "tqdm",
+            "version": "4.67.1",
+            "requirements": [
+                {
+                    "raw": "tqdm==4.67.1",
+                    "extras": [],
+                    "marker": null,
+                    "name": "tqdm",
+                    "specifier": "==4.67.1",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "typer": {
+            "name": "typer",
+            "version": "0.16.0",
+            "requirements": [
+                {
+                    "raw": "typer==0.16.0",
+                    "extras": [],
+                    "marker": null,
+                    "name": "typer",
+                    "specifier": "==0.16.0",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "types-flask-cors": {
+            "name": "types-flask-cors",
+            "version": "6.0.0.20250520",
+            "requirements": [
+                {
+                    "raw": "types-flask-cors==6.0.0.20250520",
+                    "extras": [],
+                    "marker": null,
+                    "name": "types-flask-cors",
+                    "specifier": "==6.0.0.20250520",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "typing-extensions": {
+            "name": "typing-extensions",
+            "version": "4.14.0",
+            "requirements": [
+                {
+                    "raw": "typing-extensions==4.14.0",
+                    "extras": [],
+                    "marker": null,
+                    "name": "typing-extensions",
+                    "specifier": "==4.14.0",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "typing-inspection": {
+            "name": "typing-inspection",
+            "version": "0.4.1",
+            "requirements": [
+                {
+                    "raw": "typing-inspection==0.4.1",
+                    "extras": [],
+                    "marker": null,
+                    "name": "typing-inspection",
+                    "specifier": "==0.4.1",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "uc-micro-py": {
+            "name": "uc-micro-py",
+            "version": "1.0.3",
+            "requirements": [
+                {
+                    "raw": "uc-micro-py==1.0.3",
+                    "extras": [],
+                    "marker": null,
+                    "name": "uc-micro-py",
+                    "specifier": "==1.0.3",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "urllib3": {
+            "name": "urllib3",
+            "version": "2.4.0",
+            "requirements": [
+                {
+                    "raw": "urllib3==2.4.0",
+                    "extras": [],
+                    "marker": null,
+                    "name": "urllib3",
+                    "specifier": "==2.4.0",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "uvicorn": {
+            "name": "uvicorn",
+            "version": "0.34.3",
+            "requirements": [
+                {
+                    "raw": "uvicorn==0.34.3",
+                    "extras": [],
+                    "marker": null,
+                    "name": "uvicorn",
+                    "specifier": "==0.34.3",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "uvloop": {
+            "name": "uvloop",
+            "version": "0.21.0",
+            "requirements": [
+                {
+                    "raw": "uvloop==0.21.0",
+                    "extras": [],
+                    "marker": null,
+                    "name": "uvloop",
+                    "specifier": "==0.21.0",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "virtualenv": {
+            "name": "virtualenv",
+            "version": "20.31.2",
+            "requirements": [
+                {
+                    "raw": "virtualenv==20.31.2",
+                    "extras": [],
+                    "marker": null,
+                    "name": "virtualenv",
+                    "specifier": "==20.31.2",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "watchdog": {
+            "name": "watchdog",
+            "version": "6.0.0",
+            "requirements": [
+                {
+                    "raw": "watchdog==6.0.0",
+                    "extras": [],
+                    "marker": null,
+                    "name": "watchdog",
+                    "specifier": "==6.0.0",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "watchfiles": {
+            "name": "watchfiles",
+            "version": "1.1.0",
+            "requirements": [
+                {
+                    "raw": "watchfiles==1.1.0",
+                    "extras": [],
+                    "marker": null,
+                    "name": "watchfiles",
+                    "specifier": "==1.1.0",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "websocket-client": {
+            "name": "websocket-client",
+            "version": "1.8.0",
+            "requirements": [
+                {
+                    "raw": "websocket-client==1.8.0",
+                    "extras": [],
+                    "marker": null,
+                    "name": "websocket-client",
+                    "specifier": "==1.8.0",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "websockets": {
+            "name": "websockets",
+            "version": "15.0.1",
+            "requirements": [
+                {
+                    "raw": "websockets==15.0.1",
+                    "extras": [],
+                    "marker": null,
+                    "name": "websockets",
+                    "specifier": "==15.0.1",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "werkzeug": {
+            "name": "werkzeug",
+            "version": "3.1.3",
+            "requirements": [
+                {
+                    "raw": "werkzeug==3.1.3",
+                    "extras": [],
+                    "marker": null,
+                    "name": "werkzeug",
+                    "specifier": "==3.1.3",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "wheel": {
+            "name": "wheel",
+            "version": "0.45.1",
+            "requirements": [
+                {
+                    "raw": "wheel==0.45.1",
+                    "extras": [],
+                    "marker": null,
+                    "name": "wheel",
+                    "specifier": "==0.45.1",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "wrapt": {
+            "name": "wrapt",
+            "version": "1.17.2",
+            "requirements": [
+                {
+                    "raw": "wrapt==1.17.2",
+                    "extras": [],
+                    "marker": null,
+                    "name": "wrapt",
+                    "specifier": "==1.17.2",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "zipp": {
+            "name": "zipp",
+            "version": "3.23.0",
+            "requirements": [
+                {
+                    "raw": "zipp==3.23.0",
+                    "extras": [],
+                    "marker": null,
+                    "name": "zipp",
+                    "specifier": "==3.23.0",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages"
+                }
+            ]
+        },
+        "autocommand": {
+            "name": "autocommand",
+            "version": "2.2.2",
+            "requirements": [
+                {
+                    "raw": "autocommand==2.2.2",
+                    "extras": [],
+                    "marker": null,
+                    "name": "autocommand",
+                    "specifier": "==2.2.2",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages/setuptools/_vendor"
+                }
+            ]
+        },
+        "backports.tarfile": {
+            "name": "backports.tarfile",
+            "version": "1.2.0",
+            "requirements": [
+                {
+                    "raw": "backports.tarfile==1.2.0",
+                    "extras": [],
+                    "marker": null,
+                    "name": "backports.tarfile",
+                    "specifier": "==1.2.0",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages/setuptools/_vendor"
+                }
+            ]
+        },
+        "inflect": {
+            "name": "inflect",
+            "version": "7.3.1",
+            "requirements": [
+                {
+                    "raw": "inflect==7.3.1",
+                    "extras": [],
+                    "marker": null,
+                    "name": "inflect",
+                    "specifier": "==7.3.1",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages/setuptools/_vendor"
+                }
+            ]
+        },
+        "jaraco.collections": {
+            "name": "jaraco.collections",
+            "version": "5.1.0",
+            "requirements": [
+                {
+                    "raw": "jaraco.collections==5.1.0",
+                    "extras": [],
+                    "marker": null,
+                    "name": "jaraco.collections",
+                    "specifier": "==5.1.0",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages/setuptools/_vendor"
+                }
+            ]
+        },
+        "jaraco.context": {
+            "name": "jaraco.context",
+            "version": "5.3.0",
+            "requirements": [
+                {
+                    "raw": "jaraco.context==5.3.0",
+                    "extras": [],
+                    "marker": null,
+                    "name": "jaraco.context",
+                    "specifier": "==5.3.0",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages/setuptools/_vendor"
+                }
+            ]
+        },
+        "jaraco.functools": {
+            "name": "jaraco.functools",
+            "version": "4.0.1",
+            "requirements": [
+                {
+                    "raw": "jaraco.functools==4.0.1",
+                    "extras": [],
+                    "marker": null,
+                    "name": "jaraco.functools",
+                    "specifier": "==4.0.1",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages/setuptools/_vendor"
+                }
+            ]
+        },
+        "jaraco.text": {
+            "name": "jaraco.text",
+            "version": "3.12.1",
+            "requirements": [
+                {
+                    "raw": "jaraco.text==3.12.1",
+                    "extras": [],
+                    "marker": null,
+                    "name": "jaraco.text",
+                    "specifier": "==3.12.1",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages/setuptools/_vendor"
+                }
+            ]
+        },
+        "more-itertools": {
+            "name": "more-itertools",
+            "version": "10.3.0",
+            "requirements": [
+                {
+                    "raw": "more-itertools==10.3.0",
+                    "extras": [],
+                    "marker": null,
+                    "name": "more-itertools",
+                    "specifier": "==10.3.0",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages/setuptools/_vendor"
+                }
+            ]
+        },
+        "tomli": {
+            "name": "tomli",
+            "version": "2.0.1",
+            "requirements": [
+                {
+                    "raw": "tomli==2.0.1",
+                    "extras": [],
+                    "marker": null,
+                    "name": "tomli",
+                    "specifier": "==2.0.1",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages/setuptools/_vendor"
+                }
+            ]
+        },
+        "typeguard": {
+            "name": "typeguard",
+            "version": "4.3.0",
+            "requirements": [
+                {
+                    "raw": "typeguard==4.3.0",
+                    "extras": [],
+                    "marker": null,
+                    "name": "typeguard",
+                    "specifier": "==4.3.0",
+                    "url": null,
+                    "found": "/Users/alexandergreif/PycharmProjects/CodingChallanges/AIPackager_v2/.venv/lib/python3.12/site-packages/setuptools/_vendor"
+                }
+            ]
+        }
+    },
+    "affected_packages": {},
+    "announcements": [],
+    "vulnerabilities": [],
+    "ignored_vulnerabilities": [],
+    "remediations": {},
+    "remediations_results": {
+        "vulnerabilities_fixed": [],
+        "remediations_applied": {},
+        "remediations_skipped": {}
+    }
+}
+
+
++===========================================================================================================================================================================================+
+
+
+DEPRECATED: this command (`check`) has been DEPRECATED, and will be unsupported beyond 01 June 2024.
+
+
+We highly encourage switching to the new `scan` command which is easier to use, more powerful, and can be set up to mimic the deprecated command if required.
+
+
++===========================================================================================================================================================================================+

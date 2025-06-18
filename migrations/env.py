@@ -1,12 +1,9 @@
 from logging.config import fileConfig
 
-from sqlalchemy import engine_from_config
-from sqlalchemy import pool
-
+from ai_psadt_agent.domain_models.base import Base
+from ai_psadt_agent.domain_models.package import Package  # noqa: F401
 from alembic import context
-
-from src.ai_psadt_agent.domain_models.base import Base
-from src.ai_psadt_agent.domain_models.package import Package  # noqa: F401
+from sqlalchemy import engine_from_config, pool
 
 target_metadata = Base.metadata
 

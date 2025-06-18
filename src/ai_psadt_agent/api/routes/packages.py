@@ -1,19 +1,21 @@
-from flask import Blueprint, request, jsonify
+from typing import Any  # Added Any
+
+from flask import Blueprint, jsonify, request
 from loguru import logger
 
-from src.ai_psadt_agent.domain_models.package import (
+from ai_psadt_agent.domain_models.package import (
     Package,
     PackageCreate,
-    PackageUpdate,
     PackageResponse,
+    PackageUpdate,
 )
-from src.ai_psadt_agent.infrastructure.db.session import get_db_session
+from ai_psadt_agent.infrastructure.db.session import get_db_session
 
 bp = Blueprint("packages", __name__, url_prefix="/v1/packages")
 
 
 @bp.route("", methods=["POST"])
-def create_package():
+def create_package() -> Any:  # Changed to Any
     """Create a new package."""
     try:
         data = request.get_json()
@@ -51,7 +53,7 @@ def create_package():
 
 
 @bp.route("/<int:package_id>", methods=["GET"])
-def get_package(package_id: int):
+def get_package(package_id: int) -> Any:  # Changed to Any
     """Get a package by ID."""
     try:
         with get_db_session() as session:
@@ -69,7 +71,7 @@ def get_package(package_id: int):
 
 
 @bp.route("", methods=["GET"])
-def list_packages():
+def list_packages() -> Any:  # Changed to Any
     """List all packages."""
     try:
         limit = request.args.get("limit", 50, type=int)
@@ -78,9 +80,7 @@ def list_packages():
         with get_db_session() as session:
             packages = session.query(Package).offset(offset).limit(limit).all()
 
-            response_data = [
-                PackageResponse.model_validate(pkg).model_dump() for pkg in packages
-            ]
+            response_data = [PackageResponse.model_validate(pkg).model_dump() for pkg in packages]
 
         return jsonify(
             {
@@ -97,7 +97,7 @@ def list_packages():
 
 
 @bp.route("/<int:package_id>", methods=["PUT"])
-def update_package(package_id: int):
+def update_package(package_id: int) -> Any:  # Changed to Any
     """Update a package by ID."""
     try:
         data = request.get_json()
@@ -134,7 +134,7 @@ def update_package(package_id: int):
 
 
 @bp.route("/<int:package_id>", methods=["DELETE"])
-def delete_package(package_id: int):
+def delete_package(package_id: int) -> Any:  # Changed to Any
     """Delete a package by ID."""
     try:
         with get_db_session() as session:

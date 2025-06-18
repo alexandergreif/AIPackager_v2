@@ -1,17 +1,17 @@
 # Project Plan – PSADT AI Agent (Backend‑First Rewrite)
 
-**Document ID:** project_plan.md  
+**Document ID:** project_plan.md
 **Last updated:** 2025-06-17
 
 ---
 
 ## 1 &nbsp;Purpose & Vision
-Build a lean **backend service** that accepts text prompts describing Windows installers and returns production‑ready **PowerShell App Deployment Toolkit (PSADT v3.9+) scripts**.  
+Build a lean **backend service** that accepts text prompts describing Windows installers and returns production‑ready **PowerShell App Deployment Toolkit (PSADT v3.9+) scripts**.
 The MVP must satisfy four school‑mandated pillars:
 
-1. **Backend**: HTTP API running on Flask 3.x.  
-2. **Database**: Persistent store using **SQLite** (ORM: SQLAlchemy 2.x).  
-3. **CRUD**: Create/Read/Update/Delete endpoints for a `Package` resource that stores installer metadata and generated scripts.  
+1. **Backend**: HTTP API running on Flask 3.x.
+2. **Database**: Persistent store using **SQLite** (ORM: SQLAlchemy 2.x).
+3. **CRUD**: Create/Read/Update/Delete endpoints for a `Package` resource that stores installer metadata and generated scripts.
 4. **AI features**: Endpoint that accepts free‑form text input and responds with AI‑generated text (the PSADT script).
 
 ## 2 &nbsp;Objectives & Success Metrics
@@ -27,15 +27,15 @@ The MVP must satisfy four school‑mandated pillars:
 ## 3 &nbsp;Project Scope
 
 ### In‑Scope
-* Flask backend (WSGI) with application‑factory pattern.  
-* SQLite DB via SQLAlchemy; Alembic for migrations.  
-* LLM integration (OpenAI / Anthropic) via pluggable client.  
-* Simple token authentication (e.g. API key header).  
+* Flask backend (WSGI) with application‑factory pattern.
+* SQLite DB via SQLAlchemy; Alembic for migrations.
+* LLM integration (OpenAI / Anthropic) via pluggable client.
+* Simple token authentication (e.g. API key header).
 * GitHub Actions CI; Dependabot for dependency updates.
 
 ### Out‑of‑Scope
-* Front‑end UI (CLI remains primary client).  
-* Multi‑tenant account system.  
+* Front‑end UI (CLI remains primary client).
+* Multi‑tenant account system.
 * Non‑SQLite RDBMS.
 
 ## 4 &nbsp;Architecture Overview
@@ -53,7 +53,7 @@ ai_psadt_agent/
 └─ tests/
 ```
 
-* Both **CLI** and **API** import from `services/`, ensuring single‑source business rules.  
+* Both **CLI** and **API** import from `services/`, ensuring single‑source business rules.
 * AI generation service wraps the LLM API; swap providers via env variable.
 
 ## 5 &nbsp;Technology Stack
@@ -89,8 +89,8 @@ ai_psadt_agent/
 
 ## 8 &nbsp;Acceptance Criteria
 
-* All CRUD actions succeed and persist.  
-* `/v1/generate` returns a PSADT script passing automated linter.  
-* `pytest -q` returns 0; coverage ≥ 85 %.  
-* `ruff check .` and `mypy --strict` return 0.  
-* OpenAPI docs auto‑generated at `/docs`.  
+* All CRUD actions succeed and persist.
+* `/v1/generate` returns a PSADT script passing automated linter.
+* `pytest -q` returns 0; coverage ≥ 85 %.
+* `ruff check .` and `mypy --strict` return 0.
+* OpenAPI docs auto‑generated at `/docs`.

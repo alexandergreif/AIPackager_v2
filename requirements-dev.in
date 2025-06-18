@@ -2,3 +2,9 @@ ruff
 mypy
 pytest
 pip-tools
+shiv
+mutmut
+bandit
+safety
+mkdocs
+mkdocs-material

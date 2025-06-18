@@ -1,3 +1,16 @@
 .venv/
-.venv/
 __pycache__/
+.env
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+ENV/
+.DS_Store
+aipackager.db
+*.log
+.coverage
+htmlcov/
+.pytest_cache/

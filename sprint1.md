@@ -1,5 +1,5 @@
 # Sprint 1 – Foundation & CRUD
-**Duration:** 2 weeks  
+**Duration:** 2 weeks
 **Goal:** Ship a working Flask backend with SQLite persistence and full CRUD for the `Package` resource.
 
 ---

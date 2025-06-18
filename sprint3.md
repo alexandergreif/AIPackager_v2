@@ -1,5 +1,5 @@
 # Sprint 3 – Hardening & Release
-**Duration:** 2 weeks  
+**Duration:** 2 weeks
 **Goal:** Polish the service for submission: auth, docs, packaging, release.
 
 ---

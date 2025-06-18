@@ -1,17 +1,16 @@
 """Unit tests for domain models."""
 
-import pytest
 from datetime import datetime
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
 
-from src.ai_psadt_agent.domain_models.base import Base
-from src.ai_psadt_agent.domain_models.package import (
+import pytest
+from ai_psadt_agent.domain_models.base import Base
+from ai_psadt_agent.domain_models.package import (
     Package,
     PackageCreate,
-    PackageUpdate,
     PackageResponse,
 )
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
 
 
 @pytest.fixture
