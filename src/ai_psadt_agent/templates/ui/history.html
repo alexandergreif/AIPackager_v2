@@ -1,64 +1,55 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Package History</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Alpine.js for accordion functionality -->
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-</head>
-<body class="bg-gray-100 text-gray-800">
-    <div class="container mx-auto p-8">
-        <h1 class="text-2xl font-bold mb-4">Package Generation History</h1>
+{% extends "ui/base.html" %}
 
-        <div class="bg-white p-6 rounded-lg shadow-md">
-            <div class="space-y-4">
-                {% for package in packages %}
-                <div x-data="{ open: false }" class="border-b last:border-b-0">
-                    <div @click="open = !open" class="flex justify-between items-center p-4 cursor-pointer">
-                        <div>
-                            <p class="font-semibold">{{ package.name }} <span class="font-normal text-gray-500">v{{ package.version }}</span></p>
-                            <p class="text-sm text-gray-500">Created: {{ package.created_at.strftime('%Y-%m-%d %H:%M:%S') }}</p>
-                        </div>
-                        <svg :class="{'rotate-180': open}" class="w-5 h-5 text-gray-500 transform transition-transform" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                        </svg>
-                    </div>
-                    <div x-show="open" x-transition class="p-4 bg-gray-50">
-                        <h3 class="font-semibold mb-2">Details</h3>
-                        <p><span class="font-medium">Installer Path:</span> {{ package.installer_path or 'N/A' }}</p>
-                        <p><span class="font-medium">Last Updated:</span> {{ package.updated_at.strftime('%Y-%m-%d %H:%M:%S') }}</p>
-                        <div class="mt-4">
-                            <a href="{{ url_for('ui_bp.download_package_script', package_id=package.id) }}"
-                               class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                                Re-download Script
-                            </a>
-                        </div>
-                    </div>
+{% block title %}Package History{% endblock %}
+
+{% block content %}
+<h1 class="text-2xl font-bold mb-4 dark:text-gray-200">Package Generation History</h1>
+
+<div class="bg-white p-6 rounded-lg shadow-md dark:bg-gray-800">
+    <div class="space-y-4">
+        {% for package in packages %}
+        <div x-data="{ open: false }" class="border-b last:border-b-0 dark:border-gray-700">
+            <div @click="open = !open" class="flex justify-between items-center p-4 cursor-pointer">
+                <div>
+                    <p class="font-semibold dark:text-gray-200">{{ package.name }} <span class="font-normal text-gray-500 dark:text-gray-400">v{{ package.version }}</span></p>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">Created: {{ package.created_at.strftime('%Y-%m-%d %H:%M:%S') }}</p>
                 </div>
-                {% else %}
-                <p>No packages found.</p>
-                {% endfor %}
+                <svg :class="{'rotate-180': open}" class="w-5 h-5 text-gray-500 transform transition-transform" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+            </div>
+            <div x-show="open" x-transition class="p-4 bg-gray-50 dark:bg-gray-900/50">
+                <h3 class="font-semibold mb-2 dark:text-gray-200">Details</h3>
+                <p class="dark:text-gray-300"><span class="font-medium">Installer Path:</span> {{ package.installer_path or 'N/A' }}</p>
+                <p class="dark:text-gray-300"><span class="font-medium">Last Updated:</span> {{ package.updated_at.strftime('%Y-%m-%d %H:%M:%S') }}</p>
+                <div class="mt-4">
+                    <a href="{{ url_for('ui_bp.download_package_script', package_id=package.id) }}"
+                       class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                        Re-download Script
+                    </a>
+                </div>
             </div>
         </div>
-
-        <!-- Pagination -->
-        <div class="mt-6 flex justify-between items-center">
-            <div>
-                {% if pagination.has_prev %}
-                <a href="{{ url_for('ui_bp.history_page', page=pagination.prev_num) }}" class="px-4 py-2 bg-white border rounded-md">Previous</a>
-                {% endif %}
-            </div>
-            <div>
-                Page {{ pagination.page }} of {{ pagination.pages }}.
-            </div>
-            <div>
-                {% if pagination.has_next %}
-                <a href="{{ url_for('ui_bp.history_page', page=pagination.next_num) }}" class="px-4 py-2 bg-white border rounded-md">Next</a>
-                {% endif %}
-            </div>
-        </div>
+        {% else %}
+        <p class="dark:text-gray-300">No packages found.</p>
+        {% endfor %}
     </div>
-</body>
-</html>
+</div>
+
+<!-- Pagination -->
+<div class="mt-6 flex justify-between items-center dark:text-gray-300">
+    <div>
+        {% if pagination.has_prev %}
+        <a href="{{ url_for('ui_bp.history_page', page=pagination.prev_num) }}" class="px-4 py-2 bg-white border rounded-md dark:bg-gray-700 dark:border-gray-600">Previous</a>
+        {% endif %}
+    </div>
+    <div>
+        Page {{ pagination.page }} of {{ pagination.pages }}.
+    </div>
+    <div>
+        {% if pagination.has_next %}
+        <a href="{{ url_for('ui_bp.history_page', page=pagination.next_num) }}" class="px-4 py-2 bg-white border rounded-md dark:bg-gray-700 dark:border-gray-600">Next</a>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
