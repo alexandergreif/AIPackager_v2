@@ -1,0 +1,35 @@
+# Base dependencies
+flask>=3.0
+sqlalchemy>=2.0
+alembic>=1.13
+pydantic>=2.11.7
+python-dotenv>=1.0
+loguru>=0.7
+openai>=1.3
+chromadb>=0.4.22
+flask-pydantic>=0.13
+flask-cors>=4.0
+flask-limiter>=3.5
+prometheus-flask-exporter>=0.22
+pyyaml>=6.0
+jinja2>=3.0
+
+# Development and testing tools
+pytest>=7.0
+pytest-cov>=3.0
+mypy>=1.0
+ruff>=0.1.0
+pip-tools>=7.0
+mkdocs>=1.4
+mkdocs-material>=9.0
+mutmut>=2.4
+bandit>=1.7
+safety>=3.0
+shiv>=1.0
+
+# Force newer versions to resolve conflicts
+filelock>=3.18.0
+oauthlib>=3.3.0
+packaging>=25.0
+markdown>=3.8.1
+pytest>=8.4.1

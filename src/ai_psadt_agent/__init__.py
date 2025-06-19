@@ -99,10 +99,12 @@ def create_app() -> Flask:
     from .api.routes.generation import bp as generation_bp
     from .api.routes.health import bp as health_bp
     from .api.routes.packages import bp as packages_bp
+    from .api.routes.ui import ui_bp
 
     app.register_blueprint(health_bp)
     app.register_blueprint(packages_bp)
     app.register_blueprint(generation_bp)
+    app.register_blueprint(ui_bp)
 
     from .api import init_api_docs
 
