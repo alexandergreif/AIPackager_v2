@@ -26,6 +26,23 @@ def _unregister_metrics(metric_names: list[str]) -> None:  # Added return type
                 logger.warning(f"Could not unregister metric collector {collector_obj}: {e}")
 
 
+def resume_incomplete_jobs() -> None:
+    """Find and resume jobs that were in progress when the app last shut down."""
+    # This is a placeholder for the actual job resumption logic.
+    # In a real application, you would query the database for packages
+    # with status 'IN_PROGRESS' and restart their generation process,
+    # likely using a background worker queue (e.g., Celery, RQ).
+    logger.info("Checking for incomplete jobs to resume...")
+    # from .domain_models.package import Package, StatusEnum
+    # from .infrastructure.db.session import get_session
+    # with get_session() as session:
+    #     in_progress_packages = session.query(Package).filter(Package.status == StatusEnum.IN_PROGRESS).all()
+    #     for package in in_progress_packages:
+    #         logger.info(f"Resuming job for package {package.package_id}")
+    #         # enqueue_generation_task(package.id)
+    pass
+
+
 def create_app() -> Flask:
     """Application factory pattern for Flask app."""
     app = Flask(__name__)
@@ -109,6 +126,9 @@ def create_app() -> Flask:
     from .api import init_api_docs
 
     init_api_docs(app)
+
+    with app.app_context():
+        resume_incomplete_jobs()
 
     logger.info("Flask application initialized successfully")
     return app

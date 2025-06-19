@@ -8,6 +8,7 @@ from ai_psadt_agent.domain_models.package import (
     Package,
     PackageCreate,
     PackageResponse,
+    StatusEnum,
 )
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
@@ -47,6 +48,8 @@ class TestPackageModel:
         assert package.script_text == "# Test script content"
         assert isinstance(package.created_at, datetime)
         assert isinstance(package.updated_at, datetime)
+        assert package.status == StatusEnum.PENDING
+        assert package.stage is None
 
     def test_package_optional_fields(self, in_memory_db):
         """Test Package with optional fields as None."""

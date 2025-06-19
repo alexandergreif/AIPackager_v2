@@ -1,7 +1,11 @@
 import time
+from math import ceil
 from typing import Generator, Union
 
 from flask import Blueprint, Response, render_template, request, url_for
+
+from ...domain_models.package import Package, StatusEnum
+from ...infrastructure.db.session import get_db_session
 
 ui_bp = Blueprint("ui_bp", __name__, template_folder="../../templates/ui")
 
@@ -15,38 +19,35 @@ def upload_page() -> str:
 @ui_bp.route("/packages", methods=["POST"])
 def create_package_from_form() -> Union[Response, tuple[str, int]]:
     """Handles the HTMX form submission for creating a new package."""
-    # This will be the target for the HTMX form
-    # It will handle the file upload and then call the service layer
-    # to create the package, similar to the existing API endpoint.
-
     if "package_file" not in request.files:
         return "No file part", 400
 
     file = request.files["package_file"]
-    # prompt = request.form.get("prompt_text", "") # Will be used later
+    prompt = request.form.get("prompt_text", "")
 
     if not file or not file.filename:
         return "No selected file", 400
 
-    # In a real app, you'd save this to a secure location
-    # and pass the path to the service layer.
-    # For now, we'll just confirm we received it.
-    # filename = secure_filename(file.filename)
+    # This would be handled by a proper service layer
+    with get_db_session() as session:
+        new_package = Package(
+            name=file.filename,
+            version="1.0",  # Placeholder
+            installer_path=f"/uploads/{file.filename}",  # Placeholder
+            status=StatusEnum.PENDING,
+            stage="Queued",
+            script_text=prompt,  # Using the prompt
+        )
+        session.add(new_package)
+        session.commit()
+        session.refresh(new_package)
+        package_id = new_package.package_id
 
-    # For SP5-01, the goal is to accept the post and redirect.
-    # The actual package creation logic will be fleshed out.
-    # We'll simulate a successful creation and get a package_id.
+    # In a real app, you would now trigger the background job
+    # For now, the SSE endpoint will just simulate the progress.
 
-    # Placeholder for package creation logic
-    # package = package_service.create(file, prompt)
-    # package_id = package.id
-
-    # For now, let's use a dummy ID for the redirect.
-    package_id = "dummy-uuid-12345"
-
-    # Redirect to the progress page, as per SP5-02
     response = Response(status=201)
-    response.headers["HX-Redirect"] = url_for("ui_bp.progress_page", package_id=package_id)
+    response.headers["HX-Redirect"] = url_for("ui_bp.progress_page", package_id=str(package_id))
     return response
 
 
@@ -97,68 +98,50 @@ def sse_progress(package_id: str) -> Response:
     return Response(generate(), mimetype="text/event-stream")
 
 
+class Pagination:
+    def __init__(self, page: int, per_page: int, total: int) -> None:
+        self.page = page
+        self.per_page = per_page
+        self.total = total
+        self.pages = ceil(total / per_page)
+        self.has_prev = page > 1
+        self.has_next = page < self.pages
+        self.prev_num = page - 1
+        self.next_num = page + 1
+
+
 @ui_bp.route("/history")
 def history_page() -> str:
     """Renders the package history page with pagination."""
-    # In a real implementation, you would fetch this from the database.
-    # We'll mock this for now.
-    from datetime import datetime
-
-    class MockPagination:
-        def __init__(self, page: int, per_page: int, total: int) -> None:
-            self.page = page
-            self.per_page = per_page
-            self.total = total
-            self.pages = (total + per_page - 1) // per_page
-            self.has_prev = page > 1
-            self.has_next = page < self.pages
-            self.prev_num = page - 1
-            self.next_num = page + 1
-
-    class MockPackage:
-        def __init__(
-            self,
-            id: int,
-            name: str,
-            version: str,
-            installer_path: str,
-            created_at: datetime,
-            updated_at: datetime,
-        ) -> None:
-            self.id = id
-            self.name = name
-            self.version = version
-            self.installer_path = installer_path
-            self.created_at = created_at
-            self.updated_at = updated_at
-
     page = request.args.get("page", 1, type=int)
     per_page = 10
-
-    # Mock data
-    all_packages = [
-        MockPackage(i, f"Package {i}", f"1.{i}.0", f"/path/to/installer_{i}.msi", datetime.now(), datetime.now())
-        for i in range(1, 26)
-    ]
-    all_packages.reverse()  # Newest first
-
-    total = len(all_packages)
-    packages_on_page = all_packages[(page - 1) * per_page : page * per_page]
-
-    pagination = MockPagination(page, per_page, total)
-
-    return render_template("history.html", packages=packages_on_page, pagination=pagination)
+    with get_db_session() as session:
+        total = session.query(Package).count()
+        packages = (
+            session.query(Package)
+            .order_by(Package.created_at.desc())
+            .offset((page - 1) * per_page)
+            .limit(per_page)
+            .all()
+        )
+    pagination = Pagination(page, per_page, total)
+    return render_template("history.html", packages=packages, pagination=pagination)
 
 
 @ui_bp.route("/packages/<int:package_id>/download")
 def download_package_script(package_id: int) -> Response:
     """Downloads the generated script for a given package."""
-    # In a real implementation, fetch the script text from the database.
-    # We'll mock this for now.
-    script_text = f"Write-Host 'This is the script for package {package_id}'"
+    with get_db_session() as session:
+        package = session.get(Package, package_id)
+        if not package or not package.script_text:
+            return Response("Script not found.", status=404)
+
+        script_text = package.script_text
 
     return Response(
         script_text,
         mimetype="text/plain",
-        headers={"Content-disposition": f"attachment; filename=Deploy-Application-Package-{package_id}.ps1"},
+        headers={
+            "Content-disposition": f"attachment; filename=Deploy-Application-{package.name}-{package.version}.ps1"
+        },
     )

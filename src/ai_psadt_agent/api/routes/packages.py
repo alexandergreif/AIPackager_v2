@@ -1,4 +1,4 @@
-from typing import Any  # Added Any
+from typing import Any
 
 from flask import Blueprint, jsonify, request
 from loguru import logger
@@ -38,14 +38,13 @@ def create_package() -> Any:  # Changed to Any
 
             # Convert to response model while in session
             response_data = PackageResponse.model_validate(db_package)
-            response_dict = response_data.model_dump()
 
             # Store name and version for logging
             package_name = db_package.name
             package_version = db_package.version
 
         logger.info(f"Created package: {package_name} v{package_version}")
-        return jsonify(response_dict), 201
+        return jsonify(response_data.model_dump()), 201
 
     except Exception as e:
         logger.error(f"Error creating package: {str(e)}")
