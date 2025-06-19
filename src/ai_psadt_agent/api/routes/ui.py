@@ -95,3 +95,70 @@ def sse_progress(package_id: str) -> Response:
         yield 'event: done\ndata: {"redirect_url": "/history"}\n\n'
 
     return Response(generate(), mimetype="text/event-stream")
+
+
+@ui_bp.route("/history")
+def history_page() -> str:
+    """Renders the package history page with pagination."""
+    # In a real implementation, you would fetch this from the database.
+    # We'll mock this for now.
+    from datetime import datetime
+
+    class MockPagination:
+        def __init__(self, page: int, per_page: int, total: int) -> None:
+            self.page = page
+            self.per_page = per_page
+            self.total = total
+            self.pages = (total + per_page - 1) // per_page
+            self.has_prev = page > 1
+            self.has_next = page < self.pages
+            self.prev_num = page - 1
+            self.next_num = page + 1
+
+    class MockPackage:
+        def __init__(
+            self,
+            id: int,
+            name: str,
+            version: str,
+            installer_path: str,
+            created_at: datetime,
+            updated_at: datetime,
+        ) -> None:
+            self.id = id
+            self.name = name
+            self.version = version
+            self.installer_path = installer_path
+            self.created_at = created_at
+            self.updated_at = updated_at
+
+    page = request.args.get("page", 1, type=int)
+    per_page = 10
+
+    # Mock data
+    all_packages = [
+        MockPackage(i, f"Package {i}", f"1.{i}.0", f"/path/to/installer_{i}.msi", datetime.now(), datetime.now())
+        for i in range(1, 26)
+    ]
+    all_packages.reverse()  # Newest first
+
+    total = len(all_packages)
+    packages_on_page = all_packages[(page - 1) * per_page : page * per_page]
+
+    pagination = MockPagination(page, per_page, total)
+
+    return render_template("history.html", packages=packages_on_page, pagination=pagination)
+
+
+@ui_bp.route("/packages/<int:package_id>/download")
+def download_package_script(package_id: int) -> Response:
+    """Downloads the generated script for a given package."""
+    # In a real implementation, fetch the script text from the database.
+    # We'll mock this for now.
+    script_text = f"Write-Host 'This is the script for package {package_id}'"
+
+    return Response(
+        script_text,
+        mimetype="text/plain",
+        headers={"Content-disposition": f"attachment; filename=Deploy-Application-Package-{package_id}.ps1"},
+    )
