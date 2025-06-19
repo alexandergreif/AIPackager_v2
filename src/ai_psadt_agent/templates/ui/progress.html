@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generation Progress</title>
+    <script src="https://unpkg.com/htmx.org@2.0.0/dist/htmx.min.js"></script>
+    <script src="https://unpkg.com/htmx.org@2.0.0/dist/ext/sse.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-800">
+    <div class="container mx-auto p-8">
+        <h1 class="text-2xl font-bold mb-4">Generating PSADT Script...</h1>
+        <p class="mb-2">Package ID: <span class="font-mono">{{ package_id }}</span></p>
+
+        <div hx-ext="sse" sse-connect="/v1/progress/{{ package_id }}" hx-trigger="load">
+            <div id="progress-bar-container" class="w-full bg-gray-200 rounded-full h-6 mb-4" sse-swap="progressbar" hx-swap="innerHTML">
+                <div id="progress-bar" class="bg-indigo-600 h-6 rounded-full text-center text-white" style="width: 0%">
+                    0%
+                </div>
+            </div>
+            <div id="progress-message" class="text-center" sse-swap="message" hx-swap="innerHTML">
+                Initializing...
+            </div>
+        </div>
+        <script>
+            document.body.addEventListener('htmx:sseMessage', function(evt) {
+                if (evt.detail.type === 'done') {
+                    const data = JSON.parse(evt.detail.data);
+                    window.location.href = data.redirect_url;
+                }
+            });
+        </script>
+    </div>
+</body>
+</html>

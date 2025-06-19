@@ -1,4 +1,5 @@
-from typing import Union
+import time
+from typing import Generator, Union
 
 from flask import Blueprint, Response, render_template, request, url_for
 
@@ -52,5 +53,45 @@ def create_package_from_form() -> Union[Response, tuple[str, int]]:
 @ui_bp.route("/progress/<string:package_id>")
 def progress_page(package_id: str) -> str:
     """Renders the progress page for a given package ID."""
-    # This page will be implemented in SP5-02
-    return f"Progress for package {package_id}"
+    return render_template("progress.html", package_id=package_id)
+
+
+@ui_bp.route("/v1/progress/<string:package_id>")
+def sse_progress(package_id: str) -> Response:
+    """Streams progress updates using Server-Sent Events."""
+
+    def generate() -> Generator[str, None, None]:
+        # Simulate a multi-step generation process
+        stages = {
+            10: "Analyzing installer...",
+            30: "Querying knowledge base...",
+            50: "Generating script logic...",
+            70: "Rendering PowerShell script...",
+            90: "Finalizing package...",
+            100: "Complete!",
+        }
+
+        for percentage, message in stages.items():
+            # This is where you would get the actual progress from your background job
+            time.sleep(1.5)  # Simulate work being done
+
+            # The message format for SSE is specific.
+            # We send an "event" name and "data".
+            # HTMX can use the event name to swap specific elements.
+
+            # Update the progress bar
+            bar_html = (
+                f'<div id="progress-bar" class="bg-indigo-600 h-6 rounded-full text-center text-white" '
+                f'style="width: {percentage}%">{percentage}%</div>'
+            )
+            yield f"event: progressbar\ndata: {bar_html}\n\n"
+
+            # Update the status message
+            message_html = f'<div id="progress-message" class="text-center">{message}</div>'
+            yield f"event: message\ndata: {message_html}\n\n"
+
+        # Send a final event to indicate completion, maybe for a redirect
+        time.sleep(1)
+        yield 'event: done\ndata: {"redirect_url": "/history"}\n\n'
+
+    return Response(generate(), mimetype="text/event-stream")
