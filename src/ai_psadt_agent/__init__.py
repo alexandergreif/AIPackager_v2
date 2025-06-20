@@ -29,19 +29,59 @@ def _unregister_metrics(metric_names: list[str]) -> None:  # Added return type
 
 def resume_incomplete_jobs() -> None:
     """Find and resume jobs that were in progress when the app last shut down."""
-    # This is a placeholder for the actual job resumption logic.
-    # In a real application, you would query the database for packages
-    # with status 'IN_PROGRESS' and restart their generation process,
-    # likely using a background worker queue (e.g., Celery, RQ).
     logger.info("Checking for incomplete jobs to resume...")
-    # from .domain_models.package import Package, StatusEnum
-    # from .infrastructure.db.session import get_session
-    # with get_session() as session:
-    #     in_progress_packages = session.query(Package).filter(Package.status == StatusEnum.IN_PROGRESS).all()
-    #     for package in in_progress_packages:
-    #         logger.info(f"Resuming job for package {package.package_id}")
-    #         # enqueue_generation_task(package.id)
-    pass
+
+    try:
+        from flask import current_app
+
+        from .domain_models.package import Package, StatusEnum
+        from .infrastructure.db.session import get_db_session
+        from .services.generation_service import run_generation_in_background
+
+        with get_db_session() as session:
+            # Find packages that were interrupted
+            incomplete_statuses = [StatusEnum.IN_PROGRESS, StatusEnum.PENDING]
+            incomplete_packages = session.query(Package).filter(Package.status.in_(incomplete_statuses)).all()
+
+            if not incomplete_packages:
+                logger.info("No incomplete jobs found to resume.")
+                return
+
+            logger.info(f"Found {len(incomplete_packages)} incomplete jobs to resume.")
+
+            for package in incomplete_packages:
+                try:
+                    # Check if package is resumable (has installer path)
+                    if not package.installer_path or not Path(package.installer_path).exists():
+                        # Mark as failed - installer file missing
+                        package.status = StatusEnum.FAILED
+                        package.status_message = "Cannot resume: installer file not found"
+                        package.progress = 0
+                        session.commit()
+                        logger.warning(f"Package {package.package_id} marked as FAILED: installer file missing")
+                        continue
+
+                    # Reset status and restart generation
+                    package.status = StatusEnum.PENDING
+                    package.progress = 0
+                    package.status_message = "Resumed after restart"
+                    session.commit()
+
+                    # Restart the generation process in background
+                    run_generation_in_background(str(package.package_id), current_app._get_current_object())
+                    logger.info(f"Resumed generation for package {package.package_id}")
+
+                except Exception as e:
+                    # Mark specific package as failed if resume attempt fails
+                    package.status = StatusEnum.FAILED
+                    package.status_message = f"Resume failed: {str(e)}"
+                    package.progress = 0
+                    session.commit()
+                    logger.error(f"Failed to resume package {package.package_id}: {e}")
+
+    except Exception as e:
+        logger.error(f"Error during job resumption: {e}")
+        # Don't re-raise - app should still start even if resumption fails
 
 
 def create_app() -> Flask:
