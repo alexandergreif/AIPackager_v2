@@ -9,6 +9,7 @@ from werkzeug.wrappers import Response
 
 from ...domain_models.package import Package, StatusEnum
 from ...infrastructure.db.session import get_db_session
+from ...services.file_utils import get_upload_path
 from ...services.generation_service import run_generation_in_background
 
 ui_bp = Blueprint("ui_bp", __name__, template_folder="../../templates/ui")
@@ -38,12 +39,31 @@ def create_package_from_form() -> Union[Response, tuple[str, int]]:
     if not file or not file.filename:
         return "No selected file", 400
 
-    # This would be handled by a proper service layer
+    # Generate UUID for the package
+    package_uuid = uuid.uuid4()
+
+    # Generate secure upload path
+    upload_path = get_upload_path(str(package_uuid), file.filename)
+
+    try:
+        # Ensure the upload directory exists
+        upload_path.parent.mkdir(parents=True, exist_ok=True)
+
+        # Save the uploaded file to disk
+        file.save(upload_path)
+        logger.info(f"Saved uploaded file to {upload_path}")
+
+    except (OSError, IOError) as e:
+        logger.error(f"Failed to save uploaded file: {e}")
+        return f"Failed to save file: {str(e)}", 500
+
+    # Create the package record with actual file path
     with get_db_session() as session:
         new_package = Package(
+            package_id=package_uuid,
             name=file.filename,
             version="1.0",  # Placeholder
-            installer_path=f"/uploads/{file.filename}",  # Placeholder
+            installer_path=str(upload_path),
             status=StatusEnum.PENDING,
             stage="Queued",
             script_text=prompt,  # Using the prompt
@@ -53,8 +73,7 @@ def create_package_from_form() -> Union[Response, tuple[str, int]]:
         session.refresh(new_package)
         package_id = new_package.package_id
 
-    # In a real app, you would now trigger the background job
-    # For now, the SSE endpoint will just simulate the progress.
+    # Trigger the background generation job
     app = current_app._get_current_object()
     run_generation_in_background(str(package_id), app)
 

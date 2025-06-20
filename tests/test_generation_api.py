@@ -320,57 +320,11 @@ class TestGenerationAPI:
         assert "script_content cannot be empty" in json.loads(response.data)["error"]
 
     @patch("ai_psadt_agent.api.routes.generation.get_script_generator")
-    def test_search_knowledge_base_success(self, mock_get_generator, client):
-        """Test successful knowledge base search."""
-        mock_generator = Mock()
-        mock_kb = Mock()
-        mock_search_results = [Mock(document=Mock(id="doc1", content="content1", metadata={}), score=0.9)]
-        mock_kb.search.return_value = mock_search_results
-        mock_generator.knowledge_base = mock_kb
-        mock_get_generator.return_value = mock_generator
-        request_data = {"query": "test query", "top_k": 1}
-
-        response = client.post(
-            "/v1/knowledge-base/search",
-            data=json.dumps(request_data),
-            content_type="application/json",
-            headers={"X-API-Key": self.TEST_API_KEY},
-        )
-        assert response.status_code == 200
-        data = json.loads(response.data)
-        assert len(data["results"]) == 1
-
-    def test_search_knowledge_base_missing_query(self, client):
-        """Test knowledge base search with missing query."""
-        response = client.post(
-            "/v1/knowledge-base/search",
-            data=json.dumps({}),
-            content_type="application/json",
-            headers={"X-API-Key": self.TEST_API_KEY},
-        )
-        assert response.status_code == 400
-        assert "query is required" in json.loads(response.data)["error"]
-
-    def test_search_knowledge_base_empty_query(self, client):
-        """Test knowledge base search with empty query."""
-        response = client.post(
-            "/v1/knowledge-base/search",
-            data=json.dumps({"query": "  "}),
-            content_type="application/json",
-            headers={"X-API-Key": self.TEST_API_KEY},
-        )
-        assert response.status_code == 400
-        assert "query cannot be empty" in json.loads(response.data)["error"]
-
-    @patch("ai_psadt_agent.api.routes.generation.get_script_generator")
     def test_generation_status_success(self, mock_get_generator, client):
         """Test generation status endpoint."""
         mock_generator = Mock()
-        mock_kb = Mock()
-        mock_kb.get_collection_count.return_value = 5
         mock_llm = Mock()
         mock_llm.get_provider_name.return_value = "openai"
-        mock_generator.knowledge_base = mock_kb
         mock_generator.llm_provider = mock_llm
         mock_get_generator.return_value = mock_generator
 
@@ -394,8 +348,7 @@ class TestGenerationIntegration:
     TEST_API_KEY = "default-test-api-key"
 
     @patch("ai_psadt_agent.services.script_generator.get_llm_provider")
-    @patch("ai_psadt_agent.services.script_generator.initialize_knowledge_base")
-    def test_full_generation_pipeline(self, mock_kb_init, mock_llm_provider, client, sample_installer_metadata):
+    def test_full_generation_pipeline(self, mock_llm_provider, client, sample_installer_metadata):
         """Test the complete generation pipeline from API to response."""
         mock_llm_instance = Mock()
         mock_llm_response_obj = Mock()  # Renamed to avoid conflict with LLMResponse model
@@ -405,11 +358,6 @@ class TestGenerationIntegration:
         mock_llm_response_obj.tool_calls = None  # Ensure tool_calls is explicitly None
         mock_llm_instance.generate.return_value = mock_llm_response_obj
         mock_llm_provider.return_value = mock_llm_instance
-
-        mock_kb_instance = Mock()
-        mock_kb_instance.search.return_value = []
-        mock_kb_instance.get_collection_count.return_value = 1  # Simulate some docs
-        mock_kb_init.return_value = mock_kb_instance
 
         # Patch the linter within ScriptGenerator for this test
         with patch("ai_psadt_agent.services.script_generator.ComplianceLinter") as MockLinter:
