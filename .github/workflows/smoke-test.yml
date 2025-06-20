@@ -1,0 +1,41 @@
+name: Windows Smoke Test
+
+on:
+  push:
+    branches:
+      - sprint5
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  smoke-test:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install -r requirements-dev.txt
+
+      - name: Download and extract PSADT
+        run: |
+          Invoke-WebRequest -Uri 'https://github.com/PSAppDeployToolkit/PSAppDeployToolkit/releases/download/3.9.3/PSAppDeployToolkit_3.9.3.zip' -OutFile 'psadt.zip'
+          Expand-Archive -Path 'psadt.zip' -DestinationPath 'PSADT'
+
+      - name: Generate test script
+        run: python scripts/generate_test_script.py
+
+      - name: Lint generated script
+        run: |
+          Install-Module -Name PSScriptAnalyzer -Force -Scope CurrentUser
+          Invoke-ScriptAnalyzer -Path 'generated_script.ps1' -EnableDscRules
