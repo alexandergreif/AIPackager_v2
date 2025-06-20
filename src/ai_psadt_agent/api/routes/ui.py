@@ -1,14 +1,23 @@
 import time
+import uuid
 from math import ceil
 from typing import Generator, Union
 
-from flask import Blueprint, Response, render_template, request, url_for
+from flask import Blueprint, current_app, redirect, render_template, request, url_for
 from loguru import logger
+from werkzeug.wrappers import Response
 
 from ...domain_models.package import Package, StatusEnum
 from ...infrastructure.db.session import get_db_session
+from ...services.generation_service import run_generation_in_background
 
 ui_bp = Blueprint("ui_bp", __name__, template_folder="../../templates/ui")
+
+
+@ui_bp.route("/")
+def index() -> Response:
+    """Redirects to the upload page."""
+    return redirect(url_for("ui_bp.upload_page"))
 
 
 @ui_bp.route("/upload", methods=["GET"])
@@ -46,6 +55,8 @@ def create_package_from_form() -> Union[Response, tuple[str, int]]:
 
     # In a real app, you would now trigger the background job
     # For now, the SSE endpoint will just simulate the progress.
+    app = current_app._get_current_object()
+    run_generation_in_background(str(package_id), app)
 
     response = Response(status=201)
     response.headers["HX-Redirect"] = url_for("ui_bp.progress_page", package_id=str(package_id))
@@ -61,42 +72,41 @@ def progress_page(package_id: str) -> str:
 @ui_bp.route("/v1/progress/<string:package_id>")
 def sse_progress(package_id: str) -> Response:
     """Streams progress updates using Server-Sent Events."""
-    with logger.contextualize(package_id=package_id):
-        logger.info("Starting SSE progress stream.")
 
     def generate() -> Generator[str, None, None]:
-        # Simulate a multi-step generation process
-        stages = {
-            10: "Analyzing installer...",
-            30: "Querying knowledge base...",
-            50: "Generating script logic...",
-            70: "Rendering PowerShell script...",
-            90: "Finalizing package...",
-            100: "Complete!",
-        }
+        with logger.contextualize(package_id=package_id):
+            logger.info("Starting SSE progress stream for real.")
+            last_progress = -1
+            last_message = ""
+            package_uuid = uuid.UUID(package_id)
 
-        for percentage, message in stages.items():
-            # This is where you would get the actual progress from your background job
-            time.sleep(1.5)  # Simulate work being done
+            while True:
+                with get_db_session() as session:
+                    package = session.query(Package).filter(Package.package_id == package_uuid).first()
 
-            # The message format for SSE is specific.
-            # We send an "event" name and "data".
-            # HTMX can use the event name to swap specific elements.
+                    if not package:
+                        logger.warning("Package not found, stopping SSE stream.")
+                        break
 
-            # Update the progress bar
-            bar_html = (
-                f'<div id="progress-bar" class="bg-indigo-600 h-6 rounded-full text-center text-white" '
-                f'style="width: {percentage}%">{percentage}%</div>'
-            )
-            yield f"event: progressbar\ndata: {bar_html}\n\n"
+                    if package.progress != last_progress:
+                        bar_html = (
+                            f'<div id="progress-bar" class="bg-indigo-600 h-6 rounded-full text-center text-white" '
+                            f'style="width: {package.progress}%">{package.progress}%</div>'
+                        )
+                        yield f"event: progressbar\ndata: {bar_html}\n\n"
+                        last_progress = package.progress
 
-            # Update the status message
-            message_html = f'<div id="progress-message" class="text-center">{message}</div>'
-            yield f"event: message\ndata: {message_html}\n\n"
+                    if package.status_message and package.status_message != last_message:
+                        message_html = f'<div id="progress-message" class="text-center">{package.status_message}</div>'
+                        yield f"event: message\ndata: {message_html}\n\n"
+                        last_message = package.status_message
 
-        # Send a final event to indicate completion, maybe for a redirect
-        time.sleep(1)
-        yield 'event: done\ndata: {"redirect_url": "/history"}\n\n'
+                    if package.status in [StatusEnum.COMPLETED, StatusEnum.FAILED]:
+                        logger.info(f"Package generation finished with status: {package.status.value}")
+                        redirect_url = url_for("ui_bp.history_page")
+                        yield f'event: done\ndata: {{"redirect_url": "{redirect_url}"}}\n\n'
+                        break
+                time.sleep(1)
 
     return Response(generate(), mimetype="text/event-stream")
 

@@ -50,3 +50,6 @@
 * **Sprint 3**: Binary built with Shiv; CI green; release tagged v1.0.0.
 
 ---
+
+
+The most important Rule is the KISS Rule!! Keep it simple stupid!!

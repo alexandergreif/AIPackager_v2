@@ -1,9 +1,7 @@
-"""Prompt templates for PSADT script generation with RAG integration."""
+"""Prompt templates for PSADT script generation."""
 
 from dataclasses import dataclass
-from typing import Dict, List, Optional
-
-from .knowledge_base import SearchResult
+from typing import Any, Dict, List, Optional
 
 
 @dataclass
@@ -54,14 +52,14 @@ class PromptBuilder:
         self,
         installer_metadata: InstallerMetadata,
         user_notes: Optional[str] = None,
-        rag_context: Optional[List[SearchResult]] = None,
+        rag_context: Optional[List[Any]] = None,
     ) -> List[Dict[str, str]]:
         """Build the complete prompt for script generation.
 
         Args:
             installer_metadata: Metadata about the installer
             user_notes: Additional user requirements or notes
-            rag_context: RAG search results for context
+            rag_context: Unused - kept for compatibility
 
         Returns:
             List of messages for LLM
@@ -69,7 +67,7 @@ class PromptBuilder:
         messages = [{"role": "system", "content": self.system_prompt}]
 
         # Build user prompt with installer metadata
-        user_prompt = self._build_user_prompt(installer_metadata, user_notes, rag_context)
+        user_prompt = self._build_user_prompt(installer_metadata, user_notes)
         messages.append({"role": "user", "content": user_prompt})
 
         return messages
@@ -78,14 +76,12 @@ class PromptBuilder:
         self,
         installer_metadata: InstallerMetadata,
         user_notes: Optional[str] = None,
-        rag_context: Optional[List[SearchResult]] = None,
     ) -> str:
         """Build the user prompt with metadata and context.
 
         Args:
             installer_metadata: Installer metadata
             user_notes: User notes/requirements
-            rag_context: RAG search results
 
         Returns:
             Formatted user prompt
@@ -117,20 +113,6 @@ class PromptBuilder:
         if user_notes and user_notes.strip():
             prompt_parts.append("\n## Additional Requirements")
             prompt_parts.append(user_notes.strip())
-
-        # Add RAG context if available
-        if rag_context:
-            prompt_parts.append("\n## PSADT Documentation Context")
-            prompt_parts.append("The following documentation excerpts are relevant to your task:")
-
-            for i, result in enumerate(rag_context[:8], 1):  # Limit to top 8 results
-                prompt_parts.append(f"\n### Context {i} (Score: {result.score:.3f})")
-                prompt_parts.append(f"Source: {result.document.metadata.get('filename', 'Unknown')}")
-                # Truncate very long content
-                content = result.document.content
-                if len(content) > 2000:
-                    content = content[:2000] + "...[truncated]"
-                prompt_parts.append(content)
 
         # Add final instructions
         prompt_parts.append("\n## Task")

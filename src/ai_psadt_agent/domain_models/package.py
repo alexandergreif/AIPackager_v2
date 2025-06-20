@@ -4,7 +4,7 @@ from datetime import datetime
 from typing import Any, Optional, Union
 
 from pydantic import BaseModel, field_serializer
-from sqlalchemy import DateTime, Enum, String, Text
+from sqlalchemy import DateTime, Enum, Integer, String, Text
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import Mapped, mapped_column
 
@@ -31,6 +31,8 @@ class Package(Base):
     script_text: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
     status: Mapped[StatusEnum] = mapped_column(Enum(StatusEnum), default=StatusEnum.PENDING, nullable=False)
     stage: Mapped[Optional[str]] = mapped_column(String(100), nullable=True)
+    progress: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
+    status_message: Mapped[Optional[str]] = mapped_column(String(255), nullable=True)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
     updated_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
@@ -53,6 +55,8 @@ class PackageUpdate(BaseModel):
     script_text: Optional[str] = None
     status: Optional[StatusEnum] = None
     stage: Optional[str] = None
+    progress: Optional[int] = None
+    status_message: Optional[str] = None
 
 
 class PackageResponse(BaseModel):
@@ -66,6 +70,8 @@ class PackageResponse(BaseModel):
     script_text: Optional[str]
     status: Union[StatusEnum, str]
     stage: Optional[str]
+    progress: int
+    status_message: Optional[str]
     created_at: datetime
     updated_at: datetime
 

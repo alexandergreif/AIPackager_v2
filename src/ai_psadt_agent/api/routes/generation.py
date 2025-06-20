@@ -11,7 +11,6 @@ from pydantic import BaseModel, ValidationError
 
 from ai_psadt_agent.api.auth import (
     GENERATION_RATE_LIMIT,
-    SEARCH_RATE_LIMIT,
     VALIDATION_RATE_LIMIT,
     require_api_key,
 )
@@ -182,60 +181,21 @@ def validate_script() -> Any:
         return jsonify({"error": f"Script validation failed: {str(e)}"}), 500
 
 
-@bp.route("/knowledge-base/search", methods=["POST"])
-@require_api_key
-@limiter.limit(SEARCH_RATE_LIMIT)  # type: ignore[misc]
-def search_knowledge_base() -> Any:
-    """Search the PSADT knowledge base."""
-    try:
-        data = request.get_json()
-        if not data or "query" not in data:
-            return jsonify({"error": "query is required"}), 400
-
-        query = data["query"]
-        top_k = data.get("top_k", 8)
-
-        if not query.strip():
-            return jsonify({"error": "query cannot be empty"}), 400
-
-        script_generator = get_script_generator()
-        search_results = script_generator.knowledge_base.search(query, top_k=top_k)
-        results = [
-            {
-                "id": result.document.id,
-                "content": result.document.content,
-                "metadata": result.document.metadata,
-                "score": result.score,
-            }
-            for result in search_results
-        ]
-        logger.debug(f"Knowledge base search returned {len(results)} results")
-        return jsonify({"query": query, "results": results, "total": len(results)}), 200
-
-    except Exception as e:
-        logger.error(f"Error during knowledge base search: {str(e)}")
-        return jsonify({"error": f"Knowledge base search failed: {str(e)}"}), 500
-
-
 @bp.route("/status", methods=["GET"])
 def generation_status() -> Any:
     """Get status of generation services."""
     try:
         script_generator = get_script_generator()
-        kb_count = script_generator.knowledge_base.get_collection_count()
         llm_provider_name = script_generator.llm_provider.get_provider_name()
         status = {
             "services": {
                 "script_generator": "ready",
                 "llm_provider": llm_provider_name,
-                "knowledge_base": f"{kb_count} documents indexed",
                 "compliance_linter": "ready",
             },
             "capabilities": {
                 "script_generation": True,
                 "script_validation": True,
-                "knowledge_base_search": True,
-                "rag_integration": True,
             },
         }
         return jsonify(status), 200

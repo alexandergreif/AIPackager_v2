@@ -8,9 +8,8 @@ from typing import Any, Dict, List, Optional
 from loguru import logger
 
 from ..domain_models.psadt_script import PSADTScript  # Import the new model
-from .knowledge_base import initialize_knowledge_base
 from .llm_client import LLMMessage, get_llm_provider
-from .prompt_templates import InstallerMetadata, PromptBuilder, build_rag_query
+from .prompt_templates import InstallerMetadata, PromptBuilder
 
 
 @dataclass
@@ -100,7 +99,6 @@ class ScriptGenerator:
 
     def __init__(self) -> None:
         self.llm_provider = get_llm_provider()
-        self.knowledge_base = initialize_knowledge_base()
         self.prompt_builder = PromptBuilder()
         self.compliance_linter = ComplianceLinter()
         logger.info("Initialized script generator")
@@ -112,15 +110,14 @@ class ScriptGenerator:
         max_retries: int = 2,
     ) -> Optional[GenerationResult]:
         logger.info(f"Generating PSADT script for {installer_metadata.name} v{installer_metadata.version}")
-        rag_query = build_rag_query(installer_metadata, user_notes)
-        rag_results = self.knowledge_base.search(rag_query, top_k=8)
-        rag_sources = [result.document.metadata.get("filename", "Unknown") for result in rag_results]
-        logger.info(f"Found {len(rag_results)} relevant documentation chunks")
+
+        # No RAG context - simplified generation
+        rag_sources: List[str] = []
 
         messages = self.prompt_builder.build_generation_prompt(
             installer_metadata=installer_metadata,
             user_notes=user_notes,
-            rag_context=rag_results,
+            rag_context=[],  # Empty RAG context
         )
         llm_messages = [LLMMessage(role=msg["role"], content=msg["content"]) for msg in messages]
 
