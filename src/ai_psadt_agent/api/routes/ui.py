@@ -122,7 +122,8 @@ def sse_progress(package_id: str) -> Response:
 
                     if package.status in [StatusEnum.COMPLETED, StatusEnum.FAILED]:
                         logger.info(f"Package generation finished with status: {package.status.value}")
-                        redirect_url = url_for("ui_bp.history_page")
+                        # Use hardcoded URL path instead of url_for() to avoid application context issues
+                        redirect_url = "/ui/history"
                         yield f'event: done\ndata: {{"redirect_url": "{redirect_url}"}}\n\n'
                         break
                 time.sleep(1)
