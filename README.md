@@ -47,6 +47,55 @@ A Flask-based backend service that generates production-ready PowerShell App Dep
 
 The API will be available at `http://localhost:5000`
 
+## 🌐 Web Interface Usage
+
+The application provides a user-friendly web interface for the complete package generation workflow:
+
+### Upload → Progress → Download/Copy Flow
+
+1. **📁 Upload Installer**
+   - Navigate to `http://localhost:5000/ui/upload`
+   - Fill in package name and version
+   - Select your installer file (.msi or .exe)
+   - Click "Generate Script" to start processing
+
+2. **⏳ Monitor Progress**
+   - Automatic redirect to progress page with real-time updates
+   - Watch the processing stages:
+     - File upload and validation
+     - Metadata extraction (MSI properties)
+     - AI script generation
+     - Template rendering and compliance checking
+   - Status updates show current step and progress percentage
+
+3. **📥 Download & Copy**
+   - Once complete, download the generated PSADT script
+   - **Copy to Clipboard**: Use the "Copy Script" button for quick access
+   - View package history at `/ui/history` with status badges:
+     - 🟢 **Completed**: Ready for download/copy
+     - 🔴 **Failed**: Processing error occurred
+     - 🔵 **In Progress**: Currently processing
+     - 🟡 **Pending**: Queued for processing
+
+### Key Features:
+- **Automatic Metadata Detection**: MSI files extract ProductName, ProductVersion, and Architecture
+- **Resume Capability**: Interrupted jobs automatically resume on app restart
+- **Status Tracking**: Real-time progress updates and visual status indicators
+- **Modern UI**: Dark/light mode toggle, responsive design
+- **Security**: Secure file upload with validation and safe storage
+
+### Example Usage:
+```bash
+# 1. Start the application
+python run.py
+
+# 2. Open web browser
+open http://localhost:5000/ui/upload
+
+# 3. Upload installer and wait for completion
+# 4. Download script or copy to clipboard from history page
+```
+
 ## 🔑 API Authentication
 
 ### API Key Configuration
