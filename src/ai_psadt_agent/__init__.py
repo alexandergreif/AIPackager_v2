@@ -1,5 +1,6 @@
 import os
 import sys
+from pathlib import Path
 
 # Removed unused: json, typing.Any, typing.Dict
 from flask import Flask
@@ -97,10 +98,16 @@ def create_app() -> Flask:
 
     logger.remove()
     log_format = os.getenv("LOG_FORMAT", "human").lower()
+
+    # Ensure logs directory exists
+    logs_dir = Path(__file__).parent.parent / "logs"
+    logs_dir.mkdir(exist_ok=True)
+    log_file_path = logs_dir / "api.json"
+
     if log_format == "structured":
-        # Use Loguru's built-in JSON serialization
-        logger.add(sys.stdout, level="INFO", serialize=True)
+        logger.add(log_file_path, level="INFO", serialize=True, rotation="10 MB", compression="zip")
     else:
+        # Also log to console in human-readable format for development
         log_format_str = (
             "<green>{time:YYYY-MM-DD HH:mm:ss}</green> | "
             "<level>{level: <8}</level> | "
@@ -108,6 +115,8 @@ def create_app() -> Flask:
             "<level>{message}</level>"
         )
         logger.add(sys.stdout, format=log_format_str, level="INFO")
+        # And still log to JSON file
+        logger.add(log_file_path, level="INFO", serialize=True, rotation="10 MB", compression="zip")
 
     from .api.auth import init_limiter
 

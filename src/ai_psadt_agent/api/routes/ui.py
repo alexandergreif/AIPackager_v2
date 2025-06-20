@@ -3,6 +3,7 @@ from math import ceil
 from typing import Generator, Union
 
 from flask import Blueprint, Response, render_template, request, url_for
+from loguru import logger
 
 from ...domain_models.package import Package, StatusEnum
 from ...infrastructure.db.session import get_db_session
@@ -60,6 +61,8 @@ def progress_page(package_id: str) -> str:
 @ui_bp.route("/v1/progress/<string:package_id>")
 def sse_progress(package_id: str) -> Response:
     """Streams progress updates using Server-Sent Events."""
+    with logger.contextualize(package_id=package_id):
+        logger.info("Starting SSE progress stream.")
 
     def generate() -> Generator[str, None, None]:
         # Simulate a multi-step generation process

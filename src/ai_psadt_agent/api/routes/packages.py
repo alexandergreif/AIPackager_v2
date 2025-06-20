@@ -43,7 +43,8 @@ def create_package() -> Any:  # Changed to Any
             package_name = db_package.name
             package_version = db_package.version
 
-        logger.info(f"Created package: {package_name} v{package_version}")
+        with logger.contextualize(package_id=str(response_data.package_id)):
+            logger.info(f"Created package: {package_name} v{package_version}")
         return jsonify(response_data.model_dump()), 201
 
     except Exception as e:
@@ -65,7 +66,8 @@ def get_package(package_id: int) -> Any:  # Changed to Any
         return jsonify(response_data.model_dump()), 200
 
     except Exception as e:
-        logger.error(f"Error getting package {package_id}: {str(e)}")
+        with logger.contextualize(package_id=package_id):
+            logger.error(f"Error getting package: {str(e)}")
         return jsonify({"error": str(e)}), 500
 
 
@@ -118,17 +120,18 @@ def update_package(package_id: int) -> Any:  # Changed to Any
 
             session.flush()
             response_data = PackageResponse.model_validate(db_package)
-            response_dict = response_data.model_dump()
 
             # Store for logging
             package_name = db_package.name
             package_version = db_package.version
 
-        logger.info(f"Updated package: {package_name} v{package_version}")
-        return jsonify(response_dict), 200
+        with logger.contextualize(package_id=package_id):
+            logger.info(f"Updated package: {package_name} v{package_version}")
+        return jsonify(response_data.model_dump()), 200
 
     except Exception as e:
-        logger.error(f"Error updating package {package_id}: {str(e)}")
+        with logger.contextualize(package_id=package_id):
+            logger.error(f"Error updating package: {str(e)}")
         return jsonify({"error": str(e)}), 400
 
 
@@ -146,9 +149,11 @@ def delete_package(package_id: int) -> Any:  # Changed to Any
 
             session.delete(db_package)
 
-        logger.info(f"Deleted package: {package_name} v{package_version}")
+        with logger.contextualize(package_id=package_id):
+            logger.info(f"Deleted package: {package_name} v{package_version}")
         return jsonify({"message": "Package deleted successfully"}), 200
 
     except Exception as e:
-        logger.error(f"Error deleting package {package_id}: {str(e)}")
+        with logger.contextualize(package_id=package_id):
+            logger.error(f"Error deleting package: {str(e)}")
         return jsonify({"error": str(e)}), 500

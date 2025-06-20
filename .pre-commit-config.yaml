@@ -9,7 +9,7 @@ repos:
       - id: check-yaml
         exclude: ^mkdocs\.yml$
       - id: check-json
-        exclude: ^safety-report\.json$
+        exclude: ^(safety-report\.json|src/logs/api\.json)$
       - id: check-toml
       - id: check-added-large-files
         exclude: ^mutants/
