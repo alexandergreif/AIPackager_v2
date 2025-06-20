@@ -124,6 +124,7 @@ def sse_progress(package_id: str) -> Response:
                         logger.info(f"Package generation finished with status: {package.status.value}")
                         # Use hardcoded URL path instead of url_for() to avoid application context issues
                         redirect_url = "/ui/history"
+                        logger.info(f"Sending SSE done event with redirect to: {redirect_url}")
                         yield f'event: done\ndata: {{"redirect_url": "{redirect_url}"}}\n\n'
                         break
                 time.sleep(1)
@@ -150,13 +151,32 @@ def history_page() -> str:
     per_page = 10
     with get_db_session() as session:
         total = session.query(Package).count()
-        packages = (
+        packages_query = (
             session.query(Package)
             .order_by(Package.created_at.desc())
             .offset((page - 1) * per_page)
             .limit(per_page)
             .all()
         )
+
+        # Convert to dictionaries to avoid DetachedInstanceError
+        packages = []
+        for pkg in packages_query:
+            packages.append(
+                {
+                    "id": pkg.id,
+                    "package_id": str(pkg.package_id),
+                    "name": pkg.name,
+                    "version": pkg.version,
+                    "status": pkg.status,
+                    "progress": pkg.progress,
+                    "status_message": pkg.status_message,
+                    "created_at": pkg.created_at,
+                    "updated_at": pkg.updated_at,
+                    "script_text": pkg.script_text,
+                }
+            )
+
     pagination = Pagination(page, per_page, total)
     return render_template("history.html", packages=packages, pagination=pagination)
 
@@ -177,4 +197,47 @@ def download_package_script(package_id: int) -> Response:
         headers={
             "Content-disposition": f"attachment; filename=Deploy-Application-{package.name}-{package.version}.ps1"
         },
+    )
+
+
+@ui_bp.route("/packages/<string:package_uuid>/download")
+def download_package_script_by_uuid(package_uuid: str) -> Response:
+    """Downloads the generated script for a given package by UUID."""
+    try:
+        package_id = uuid.UUID(package_uuid)
+    except ValueError:
+        return Response("Invalid package ID.", status=400)
+
+    with get_db_session() as session:
+        package = session.query(Package).filter(Package.package_id == package_id).first()
+        if not package or not package.script_text:
+            return Response("Script not found.", status=404)
+
+        script_text = package.script_text
+
+    return Response(
+        script_text,
+        mimetype="text/plain",
+        headers={
+            "Content-disposition": f"attachment; filename=Deploy-Application-{package.name}-{package.version}.ps1"
+        },
+    )
+
+
+@ui_bp.route("/packages/<string:package_uuid>/script")
+def get_package_script_content(package_uuid: str) -> Response:
+    """Returns the script content as JSON for copy-to-clipboard functionality."""
+    try:
+        package_id = uuid.UUID(package_uuid)
+    except ValueError:
+        return Response("Invalid package ID.", status=400)
+
+    with get_db_session() as session:
+        package = session.query(Package).filter(Package.package_id == package_id).first()
+        if not package or not package.script_text:
+            return Response("Script not found.", status=404)
+
+    return Response(
+        package.script_text,
+        mimetype="text/plain",
     )
