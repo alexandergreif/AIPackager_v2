@@ -8,10 +8,77 @@
 <div class="bg-white p-6 rounded-lg shadow-md dark:bg-gray-800">
     <div class="space-y-4">
         {% for package in packages %}
-        <div x-data="{ open: false }" class="border-b last:border-b-0 dark:border-gray-700">
+        <div x-data="{
+            open: false,
+            copyText: 'Copy Script',
+            copySuccess: false,
+            copyScriptToClipboard(text) {
+                if (navigator.clipboard && window.isSecureContext) {
+                    navigator.clipboard.writeText(text).then(() => {
+                        this.copyText = 'Copied!';
+                        this.copySuccess = true;
+                        setTimeout(() => {
+                            this.copyText = 'Copy Script';
+                            this.copySuccess = false;
+                        }, 2000);
+                    }).catch(err => {
+                        console.error('Failed to copy text: ', err);
+                        this.fallbackCopy(text);
+                    });
+                } else {
+                    this.fallbackCopy(text);
+                }
+            },
+            fallbackCopy(text) {
+                const textArea = document.createElement('textarea');
+                textArea.value = text;
+                textArea.style.top = '0';
+                textArea.style.left = '0';
+                textArea.style.position = 'fixed';
+                document.body.appendChild(textArea);
+                textArea.focus();
+                textArea.select();
+                try {
+                    const successful = document.execCommand('copy');
+                    if (successful) {
+                        this.copyText = 'Copied!';
+                        this.copySuccess = true;
+                        setTimeout(() => {
+                            this.copyText = 'Copy Script';
+                            this.copySuccess = false;
+                        }, 2000);
+                    }
+                } catch (err) {
+                    console.error('Fallback copy failed: ', err);
+                }
+                document.body.removeChild(textArea);
+            }
+        }" class="border-b last:border-b-0 dark:border-gray-700">
             <div @click="open = !open" class="flex justify-between items-center p-4 cursor-pointer">
                 <div>
-                    <p class="font-semibold dark:text-gray-200">{{ package.name }} <span class="font-normal text-gray-500 dark:text-gray-400">v{{ package.version }}</span></p>
+                    <div class="flex items-center space-x-2">
+                        <p class="font-semibold dark:text-gray-200">{{ package.name }} <span class="font-normal text-gray-500 dark:text-gray-400">v{{ package.version }}</span></p>
+                        <!-- Status Badge -->
+                        {% if package.status %}
+                            {% if package.status.name == 'COMPLETED' %}
+                            <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-800 dark:text-green-100">
+                                ✓ Completed
+                            </span>
+                            {% elif package.status.name == 'FAILED' %}
+                            <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-red-100 text-red-800 dark:bg-red-800 dark:text-red-100">
+                                ✗ Failed
+                            </span>
+                            {% elif package.status.name == 'IN_PROGRESS' %}
+                            <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-800 dark:text-blue-100">
+                                ⟳ In Progress
+                            </span>
+                            {% elif package.status.name == 'PENDING' %}
+                            <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800 dark:bg-yellow-800 dark:text-yellow-100">
+                                ⧖ Pending
+                            </span>
+                            {% endif %}
+                        {% endif %}
+                    </div>
                     <p class="text-sm text-gray-500 dark:text-gray-400">Created: {{ package.created_at.strftime('%Y-%m-%d %H:%M:%S') }}</p>
                 </div>
                 <svg :class="{'rotate-180': open}" class="w-5 h-5 text-gray-500 transform transition-transform" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -22,11 +89,18 @@
                 <h3 class="font-semibold mb-2 dark:text-gray-200">Details</h3>
                 <p class="dark:text-gray-300"><span class="font-medium">Installer Path:</span> {{ package.installer_path or 'N/A' }}</p>
                 <p class="dark:text-gray-300"><span class="font-medium">Last Updated:</span> {{ package.updated_at.strftime('%Y-%m-%d %H:%M:%S') }}</p>
-                <div class="mt-4">
+                <div class="mt-4 flex space-x-3">
                     <a href="{{ url_for('ui_bp.download_package_script', package_id=package.id) }}"
                        class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                         Re-download Script
                     </a>
+                    {% if package.script_text and package.status and package.status.name == 'COMPLETED' %}
+                    <button @click="copyScriptToClipboard('{{ package.script_text | replace('\'', '\\\'') | replace('\n', '\\n') | replace('\r', '') }}')"
+                            :class="copySuccess ? 'bg-green-600 hover:bg-green-700' : 'bg-gray-600 hover:bg-gray-700'"
+                            class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition-colors">
+                        <span x-text="copyText"></span>
+                    </button>
+                    {% endif %}
                 </div>
             </div>
         </div>
