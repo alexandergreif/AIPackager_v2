@@ -10,6 +10,7 @@ from loguru import logger
 from ..domain_models.psadt_script import PSADTScript  # Import the new model
 from .llm_client import LLMMessage, get_llm_provider
 from .prompt_templates import InstallerMetadata, PromptBuilder
+from .script_renderer import get_script_renderer
 
 
 @dataclass
@@ -153,11 +154,12 @@ class ScriptGenerator:
                         try:
                             tool_args = json.loads(tool_call.function.arguments)
                             structured_psadt_script = PSADTScript(**tool_args)
-                            script_content = f"# Structured PSADT Script generated for: {structured_psadt_script.installation.name}\n"
-                            script_content += "# Actual rendering to PS1 will be done in SP4-04.\n"
-                            # Add minimal valid PSADT content for linting
-                            script_content += "<# .SYNOPSIS Placeholder #>\n<# .DESCRIPTION Placeholder #>\n[CmdletBinding()]\nParam()\nTry {\nWrite-Log 'Placeholder'\nShow-InstallationWelcome\nShow-InstallationProgress\nExit-Script -ExitCode 0\n}\nCatch { Write-Log 'Error'; Exit-Script -ExitCode 1 }\nSet-ExecutionPolicy Bypass -Scope Process -Force\n$appVendor = 'Vendor'; $appName = 'App'; $appVersion = '1.0'\n##* VARIABLE DECLARATION *##\n##* INSTALLATION *##"
-                            logger.info("Successfully parsed structured PSADT script from LLM tool call.")
+
+                            # Render the structured script to PowerShell using ScriptRenderer
+                            script_renderer = get_script_renderer()
+                            script_content = script_renderer.render_psadt_script(structured_psadt_script)
+
+                            logger.info("Successfully parsed and rendered structured PSADT script from LLM tool call.")
                         except Exception as e:
                             logger.error(f"Failed to parse PSADTScript from LLM tool call arguments: {e}")
                             if response.content:

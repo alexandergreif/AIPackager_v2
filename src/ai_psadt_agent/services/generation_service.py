@@ -1,11 +1,13 @@
 import threading
 import uuid
+from pathlib import Path
 from typing import Any
 
 from loguru import logger
 
 from ..domain_models.package import Package, StatusEnum
 from ..infrastructure.db.session import get_db_session
+from ..metadata.extract import extract_metadata
 from .prompt_templates import InstallerMetadata
 from .script_generator import ScriptGenerator
 
@@ -44,18 +46,30 @@ def generate_and_update_package(package_id: str, app: Any) -> None:
 
             try:
                 script_generator = ScriptGenerator()
-                installer_metadata = InstallerMetadata(
-                    name=package.name,
-                    version=package.version or "0.0.0",
-                    vendor="Unknown",
-                    installer_type=package.name.split(".")[-1] if package.name else "exe",
-                    installer_path=package.installer_path,
-                    silent_args="/S",
-                    architecture="x64",
-                    language="EN",
-                )
 
-                # Generate script (simplified - no progress callback for now)
+                # Extract real metadata from the uploaded installer file
+                progress_callback(10, "Extracting metadata from installer file...")
+
+                if package.installer_path:
+                    installer_path = Path(package.installer_path)
+                    installer_metadata = extract_metadata(installer_path)
+                    logger.info(f"Extracted metadata: {installer_metadata.name} v{installer_metadata.version}")
+                else:
+                    # Fallback to package data if no installer path
+                    installer_metadata = InstallerMetadata(
+                        name=package.name,
+                        version=package.version or "1.0.0",
+                        vendor="Unknown",
+                        installer_type="exe",
+                        silent_args="/S",
+                        architecture="x64",
+                        language="EN",
+                    )
+                    logger.warning(f"No installer path found for package {package_id}, using fallback metadata")
+
+                progress_callback(30, "Generating PSADT script...")
+
+                # Generate script with extracted metadata
                 result = script_generator.generate_script(
                     installer_metadata=installer_metadata,
                     user_notes=package.script_text,

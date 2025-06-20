@@ -176,7 +176,8 @@ class TestScriptGenerator:
         assert isinstance(result, GenerationResult)
         assert result.structured_script is not None
         assert result.structured_script.variables["appName"] == "Test App from Tool"
-        assert "Structured PSADT Script generated for: Installation" in result.script_content
+        assert "Test App from Tool" in result.script_content  # Check rendered content
+        assert "Execute-Process" in result.script_content  # Check that the command is rendered
         assert result.metadata["llm_model"] == "gpt-4o-tool-call"
 
     @patch("ai_psadt_agent.services.script_generator.get_llm_provider")
